@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Heist League - IP 보호 전략</title>
+  <style>
+    :root {
+      --bg: #0a0e17;
+      --surface: #111827;
+      --surface2: #1a2236;
+      --border: #1e293b;
+      --accent: #22d3ee;
+      --accent2: #a78bfa;
+      --accent3: #f472b6;
+      --green: #34d399;
+      --red: #f87171;
+      --yellow: #fbbf24;
+      --orange: #fb923c;
+      --text: #e2e8f0;
+      --text-dim: #94a3b8;
+      --text-bright: #f8fafc;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.75; overflow-x: hidden;
+    }
+    body::before {
+      content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background:
+        radial-gradient(ellipse at 25% 40%, rgba(248,113,113,0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at 75% 60%, rgba(34,211,238,0.05) 0%, transparent 50%);
+      z-index: -1;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .back-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 14px 0; font-size: 13px; color: var(--text-dim);
+    }
+    .back-link:hover { color: var(--accent); text-decoration: none; }
+
+    /* Hero */
+    .hero { padding: 40px 0 50px; text-align: center; }
+    .hero-badge {
+      display: inline-block; padding: 6px 16px;
+      background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.3);
+      border-radius: 100px; font-size: 13px; color: var(--red);
+      letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800;
+      color: var(--text-bright); line-height: 1.3; margin-bottom: 14px;
+    }
+    .hero h1 .gradient-text {
+      background: linear-gradient(135deg, var(--red), var(--orange), var(--yellow));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-sub { font-size: 1.05rem; color: var(--text-dim); max-width: 700px; margin: 0 auto; }
+
+    /* Nav */
+    .nav-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,14,23,0.85); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-bar .container { display: flex; overflow-x: auto; gap: 0; scrollbar-width: none; }
+    .nav-bar .container::-webkit-scrollbar { display: none; }
+    .nav-link {
+      padding: 14px 18px; font-size: 13px; font-weight: 600;
+      color: var(--text-dim); text-decoration: none; white-space: nowrap;
+      border-bottom: 2px solid transparent; transition: all 0.2s;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--orange); border-bottom-color: var(--orange); text-decoration: none; }
+
+    /* Sections */
+    section { padding: 56px 0; }
+    section + section { border-top: 1px solid var(--border); }
+    .tag {
+      display: inline-block; padding: 4px 12px; border-radius: 6px;
+      font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 12px;
+    }
+    .tag-red { background: rgba(248,113,113,0.15); color: var(--red); }
+    .tag-orange { background: rgba(251,146,60,0.15); color: var(--orange); }
+    .tag-yellow { background: rgba(251,191,36,0.15); color: var(--yellow); }
+    .tag-green { background: rgba(52,211,153,0.15); color: var(--green); }
+    .tag-cyan { background: rgba(34,211,238,0.15); color: var(--accent); }
+    .tag-purple { background: rgba(167,139,250,0.15); color: var(--accent2); }
+    .tag-pink { background: rgba(244,114,182,0.15); color: var(--accent3); }
+
+    h2 { font-size: 1.7rem; font-weight: 800; color: var(--text-bright); margin-bottom: 8px; }
+    h3 { font-size: 1.15rem; font-weight: 700; color: var(--text-bright); margin-bottom: 8px; }
+    .section-desc { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 32px; }
+
+    /* Answer box */
+    .answer-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px; margin-bottom: 24px;
+      border-left: 4px solid var(--accent);
+    }
+    .answer-box h3 { margin-bottom: 12px; }
+    .answer-box p { font-size: 14px; margin-bottom: 10px; }
+    .answer-box .highlight { color: var(--accent); font-weight: 600; }
+
+    /* Exposure analysis */
+    .exposure-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;
+    }
+    @media (max-width: 768px) { .exposure-grid { grid-template-columns: 1fr; } }
+    .exposure-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 22px; position: relative;
+    }
+    .exposure-card .level {
+      display: inline-block; padding: 3px 10px; border-radius: 100px;
+      font-size: 11px; font-weight: 600; margin-bottom: 10px;
+    }
+    .level-low { background: rgba(52,211,153,0.15); color: var(--green); }
+    .level-med { background: rgba(251,191,36,0.15); color: var(--yellow); }
+    .level-high { background: rgba(248,113,113,0.15); color: var(--red); }
+    .exposure-card h4 { font-size: 0.95rem; color: var(--text-bright); margin-bottom: 6px; }
+    .exposure-card p { font-size: 13px; color: var(--text-dim); }
+
+    /* IP cards */
+    .ip-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px; margin-bottom: 20px;
+      position: relative; overflow: hidden;
+    }
+    .ip-card::before {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 4px; height: 100%;
+    }
+    .ip-card.trademark::before { background: var(--orange); }
+    .ip-card.patent::before { background: var(--accent2); }
+    .ip-card.design::before { background: var(--accent3); }
+    .ip-card.copyright::before { background: var(--accent); }
+    .ip-card.secret::before { background: var(--yellow); }
+
+    .ip-card .ip-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 16px; gap: 12px; flex-wrap: wrap;
+    }
+    .ip-card .ip-header h3 { font-size: 1.2rem; }
+    .ip-meta {
+      display: flex; gap: 12px; flex-wrap: wrap;
+    }
+    .ip-meta-item {
+      padding: 4px 10px; background: var(--surface2); border-radius: 6px;
+      font-size: 12px; color: var(--text-dim);
+    }
+    .ip-meta-item strong { color: var(--text-bright); }
+
+    .ip-card .what-protect {
+      background: var(--surface2); border-radius: 10px; padding: 16px; margin: 12px 0;
+    }
+    .ip-card .what-protect h4 {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .what-protect.can h4 { color: var(--green); }
+    .what-protect.cant h4 { color: var(--red); }
+    .ip-card .what-protect ul { list-style: none; }
+    .ip-card .what-protect li {
+      padding: 4px 0 4px 18px; position: relative; font-size: 13px;
+    }
+    .what-protect.can li::before { content: '+'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+    .what-protect.cant li::before { content: '-'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+
+    .ip-card .ip-steps {
+      list-style: none; margin-top: 12px;
+    }
+    .ip-card .ip-steps li {
+      padding: 6px 0 6px 24px; position: relative; font-size: 13px; color: var(--text);
+    }
+    .ip-card .ip-steps li::before {
+      content: attr(data-num); position: absolute; left: 0; top: 6px;
+      width: 18px; height: 18px; display: flex; align-items: center; justify-content: center;
+      background: var(--surface2); border-radius: 4px;
+      font-size: 10px; font-weight: 700; color: var(--text-dim);
+    }
+
+    /* Cost table */
+    .cost-wrapper { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); margin: 16px 0; }
+    .cost-table { width: 100%; border-collapse: collapse; min-width: 500px; }
+    .cost-table th, .cost-table td {
+      padding: 12px 16px; font-size: 13px; border-bottom: 1px solid var(--border); text-align: left;
+    }
+    .cost-table th {
+      background: var(--surface2); color: var(--text-dim);
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;
+    }
+    .cost-table tr:last-child td { border-bottom: none; }
+    .cost-table tbody tr:hover td { background: rgba(34,211,238,0.03); }
+    .money { color: var(--green); font-weight: 700; }
+    .cost-total {
+      background: rgba(52,211,153,0.06); font-weight: 700;
+    }
+    .cost-total td { color: var(--text-bright); }
+
+    /* Priority shield */
+    .shield-box {
+      background: linear-gradient(135deg, rgba(251,146,60,0.08), rgba(248,113,113,0.08));
+      border: 1px solid rgba(251,146,60,0.25);
+      border-radius: 16px; padding: 32px; margin: 24px 0;
+    }
+    .shield-box h3 { color: var(--orange); font-size: 1.3rem; margin-bottom: 16px; }
+    .shield-list { list-style: none; }
+    .shield-list li {
+      padding: 10px 0 10px 28px; position: relative; font-size: 14px;
+    }
+    .shield-list li::before {
+      content: '>'; position: absolute; left: 4px;
+      color: var(--orange); font-weight: 700; font-family: monospace;
+    }
+    .shield-list li + li { border-top: 1px solid rgba(255,255,255,0.04); }
+
+    /* Non-legal moat */
+    .moat-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 14px; margin-top: 16px;
+    }
+    .moat-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px; text-align: center;
+    }
+    .moat-card .moat-icon { font-size: 28px; margin-bottom: 8px; }
+    .moat-card h4 { font-size: 0.9rem; color: var(--text-bright); margin-bottom: 6px; }
+    .moat-card p { font-size: 12px; color: var(--text-dim); }
+
+    /* Government support */
+    .gov-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 22px; margin-bottom: 14px;
+    }
+    .gov-card h4 { font-size: 1rem; color: var(--text-bright); margin-bottom: 4px; }
+    .gov-card .gov-sub { font-size: 13px; color: var(--accent2); margin-bottom: 8px; }
+    .gov-card p { font-size: 13px; color: var(--text-dim); }
+    .gov-card .gov-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+    .gov-tag {
+      padding: 3px 8px; background: var(--surface2); border-radius: 4px;
+      font-size: 11px; color: var(--text-dim);
+    }
+
+    /* Action plan */
+    .action-timeline { position: relative; padding-left: 32px; }
+    .action-timeline::before {
+      content: ''; position: absolute; left: 12px; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, var(--red), var(--orange), var(--yellow), var(--green));
+    }
+    .action-item {
+      position: relative; margin-bottom: 20px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 22px; margin-left: 20px;
+    }
+    .action-item::before {
+      content: ''; position: absolute; left: -32px; top: 22px;
+      width: 14px; height: 14px; border-radius: 50%;
+      border: 3px solid; background: var(--bg);
+    }
+    .action-item.urgent::before { border-color: var(--red); }
+    .action-item.soon::before { border-color: var(--orange); }
+    .action-item.later::before { border-color: var(--yellow); }
+    .action-item.ongoing::before { border-color: var(--green); }
+
+    .action-item .action-when {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; margin-bottom: 6px;
+    }
+    .action-item.urgent .action-when { color: var(--red); }
+    .action-item.soon .action-when { color: var(--orange); }
+    .action-item.later .action-when { color: var(--yellow); }
+    .action-item.ongoing .action-when { color: var(--green); }
+    .action-item h4 { font-size: 0.95rem; color: var(--text-bright); margin-bottom: 4px; }
+    .action-item p { font-size: 13px; color: var(--text-dim); }
+    .action-item .action-cost { font-size: 12px; color: var(--green); font-weight: 600; margin-top: 6px; }
+
+    /* Warning box */
+    .warn-box {
+      background: rgba(248,113,113,0.06); border: 1px solid rgba(248,113,113,0.2);
+      border-radius: 12px; padding: 24px; margin-top: 20px;
+    }
+    .warn-box h4 { color: var(--red); font-size: 0.95rem; margin-bottom: 10px; }
+    .warn-box p { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+
+    /* Footer */
+    footer {
+      padding: 40px 0; border-top: 1px solid var(--border);
+      text-align: center; color: var(--text-dim); font-size: 13px;
+    }
+
+    .fade-in {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      .hero { padding: 32px 0 36px; }
+      section { padding: 40px 0; }
+      .ip-card .ip-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="strategy.html" class="back-link">&larr; 전략 조언 리포트로 돌아가기</a>
+  </div>
+
+  <header class="hero">
+    <div class="container">
+      <div class="hero-badge">IP Protection Strategy</div>
+      <h1>
+        <span class="gradient-text">아이디어를 지켜라</span><br>
+        IP 보호 & 방어 전략
+      </h1>
+      <p class="hero-sub">
+        모두의 창업 출품 시 아이디어 노출 리스크를 분석하고,<br>
+        상표권/특허/저작권/영업비밀로 구축하는 다층 방어 전략을 제안합니다.
+      </p>
+    </div>
+  </header>
+
+  <nav class="nav-bar">
+    <div class="container">
+      <a href="#exposure" class="nav-link">노출 리스크</a>
+      <a href="#trademark" class="nav-link">상표권</a>
+      <a href="#patent" class="nav-link">특허</a>
+      <a href="#copyright" class="nav-link">저작권</a>
+      <a href="#secret" class="nav-link">영업비밀</a>
+      <a href="#moat" class="nav-link">비법적 해자</a>
+      <a href="#gov" class="nav-link">정부 지원</a>
+      <a href="#action" class="nav-link">실행 계획</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- SECTION: Exposure Risk -->
+    <section id="exposure">
+      <div class="container">
+        <div class="tag tag-red">Risk Analysis</div>
+        <h2>먼저 팩트 체크: 실제로 얼마나 노출되는가?</h2>
+        <p class="section-desc">모두의 창업 출품 시 아이디어 노출 범위를 정확히 파악합니다</p>
+
+        <div class="answer-box fade-in">
+          <h3>결론부터: 생각보다 노출이 적습니다</h3>
+          <p>
+            모두의 창업 FAQ에 따르면, <span class="highlight">"한 줄 아이디어"만 선택적으로 공개 가능</span>하고
+            <span class="highlight">상세 아이디어 내용은 항상 비공개</span>입니다.
+            선발 후에도 핵심/원천 기술을 제외한 발전 과정만 본인 동의하에 공유됩니다.
+          </p>
+          <p>
+            그러나 <strong>완전한 비공개는 아닙니다.</strong> 멘토(500+명), 심사위원, 운영기관 담당자, IR 참석 투자자 등
+            내부 관계자에게는 아이디어가 노출됩니다. 2라운드부터는 Public IR도 진행됩니다.
+          </p>
+        </div>
+
+        <h3 style="margin-bottom: 16px;">라운드별 노출 범위</h3>
+        <div class="exposure-grid fade-in">
+          <div class="exposure-card">
+            <span class="level level-low">낮음</span>
+            <h4>지원서 제출 단계</h4>
+            <p>한 줄 아이디어를 <strong>"비공개"로 설정 가능.</strong> 상세 내용은 운영기관 책임멘토만 열람. 노출 범위: 1~2명.</p>
+          </div>
+          <div class="exposure-card">
+            <span class="level level-low">낮음</span>
+            <h4>출전자 선발 (4,000명)</h4>
+            <p>1:1 책임멘토링. 멘토 1명에게 상세 공유. AI 솔루션 활용은 자체적이므로 추가 노출 없음.</p>
+          </div>
+          <div class="exposure-card">
+            <span class="level level-med">중간</span>
+            <h4>1라운드 (500명)</h4>
+            <p>기술멘토 추가 배정. 서면 평가 심사위원에게 사업계획서 공개. 노출 범위: 5~10명 내외.</p>
+          </div>
+          <div class="exposure-card">
+            <span class="level level-high">높음</span>
+            <h4>2라운드~결선 (200명~10명)</h4>
+            <p><strong>Public IR 시작.</strong> 기술 전문가, 투자자, 선배 창업자 앞에서 발표. 전국 결선은 TV 방송. 노출 범위: 수백~수만 명.</p>
+          </div>
+        </div>
+
+        <div class="warn-box fade-in">
+          <h4>핵심 리스크 포인트</h4>
+          <p><strong>진짜 위험은 "컨셉 카피"가 아니라 "실행 카피"입니다.</strong></p>
+          <p>
+            "MLB 판타지리그를 주식에 적용한다"는 컨셉 자체는 아이디어 수준이라 법적 보호가 어렵습니다.
+            실제로 해외에서 이미 유사 컨셉이 존재합니다. 진짜 보호해야 할 것은:
+          </p>
+          <p style="color: var(--text-bright);">
+            (1) <strong>브랜드 (상표)</strong> &mdash; "Stock Heist League"라는 이름과 아이덴티티<br>
+            (2) <strong>스코어링 알고리즘 (특허)</strong> &mdash; 주식 지표를 판타지 스탯으로 변환하는 구체적 기술<br>
+            (3) <strong>소스코드와 UI (저작권)</strong> &mdash; 실제 구현물<br>
+            (4) <strong>세부 파라미터 (영업비밀)</strong> &mdash; 알고리즘의 가중치, 튜닝 값 등
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Trademark -->
+    <section id="trademark">
+      <div class="container">
+        <div class="tag tag-orange">Layer 1</div>
+        <h2>상표권 (Trademark) &mdash; 브랜드를 선점하라</h2>
+        <p class="section-desc">한국은 선출원주의: 먼저 출원한 사람이 이긴다</p>
+
+        <div class="ip-card trademark fade-in">
+          <div class="ip-header">
+            <div>
+              <h3>상표 출원 &mdash; 가장 먼저, 가장 쉽게</h3>
+              <p style="font-size: 14px; color: var(--text-dim);">
+                한국은 <strong>선출원주의 (先出願主義)</strong>입니다. 누가 먼저 사용했느냐가 아니라 <strong>누가 먼저 출원했느냐</strong>가 중요합니다.
+                "Stock Heist League"를 내일이라도 다른 사람이 먼저 출원하면, 당신이 이 이름을 쓸 수 없게 됩니다.
+              </p>
+            </div>
+            <div class="ip-meta">
+              <span class="ip-meta-item">비용: <strong class="money">~25만원 (DIY)</strong></span>
+              <span class="ip-meta-item">기간: <strong>10~14개월</strong></span>
+              <span class="ip-meta-item">우선도: <strong style="color:var(--red);">즉시</strong></span>
+            </div>
+          </div>
+
+          <div class="what-protect can">
+            <h4>보호 가능</h4>
+            <ul>
+              <li>"Stock Heist League" 브랜드명 (영문)</li>
+              <li>한글 브랜드명 (예: "주식 하이스트 리그" 등)</li>
+              <li>로고/엠블럼 (도형상표)</li>
+              <li>앱 아이콘</li>
+              <li>제품 출시 전에도 출원 가능 (사용 의사만으로 충분)</li>
+            </ul>
+          </div>
+
+          <div class="what-protect cant">
+            <h4>보호 불가</h4>
+            <ul>
+              <li>"주식 판타지 리그"처럼 서비스를 직접 설명하는 명칭 (기술적 상표 거절)</li>
+              <li>게임 메커닉이나 룰 자체</li>
+            </ul>
+          </div>
+
+          <h4 style="margin-top: 16px; font-size: 13px; color: var(--text-dim);">출원 절차</h4>
+          <ul class="ip-steps">
+            <li data-num="1"><strong>KIPRIS 선행조사</strong> &mdash; kipris.or.kr에서 동일/유사 상표 검색 (무료)</li>
+            <li data-num="2"><strong>특허로 전자출원</strong> &mdash; patent.go.kr에서 온라인 출원. 제9류(소프트웨어) + 제41류(게임 서비스) 지정</li>
+            <li data-num="3"><strong>방식심사</strong> &mdash; 서류 형식 검토</li>
+            <li data-num="4"><strong>출원공고</strong> &mdash; 상표공보에 30일간 게재 (이의신청 기간)</li>
+            <li data-num="5"><strong>실체심사</strong> &mdash; 거절 사유 검토</li>
+            <li data-num="6"><strong>등록결정</strong> &mdash; 등록료 납부 후 상표권 발생 (10년간 유효, 무한 갱신 가능)</li>
+          </ul>
+
+          <div class="cost-wrapper">
+            <table class="cost-table">
+              <thead><tr><th>항목</th><th>비용 (1개 류 기준)</th><th>비고</th></tr></thead>
+              <tbody>
+                <tr><td>출원 관납료 (전자)</td><td class="money">46,000원</td><td>일반명칭 지정 시 52,000원</td></tr>
+                <tr><td>등록료 (10년)</td><td class="money">201,000원</td><td>분할납부 시 5년마다 122,000원</td></tr>
+                <tr><td>변리사 수수료 (선택)</td><td>200,000~500,000원</td><td>DIY 가능, 단 거절 대응 시 전문가 추천</td></tr>
+                <tr class="cost-total"><td>합계 (DIY, 1개 류)</td><td class="money">~247,000원</td><td>2개 류 출원 시 ~494,000원</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="padding: 14px; background: rgba(251,146,60,0.06); border-left: 3px solid var(--orange); border-radius: 0 8px 8px 0; margin-top: 12px; font-size: 13px;">
+            <strong style="color: var(--orange);">핵심:</strong> 출원 = 접수 즉시 우선일 확보. 등록까지 10~14개월 걸리지만,
+            <strong>출원일 이후 타인이 같은 이름을 출원해도 당신이 우선</strong>합니다.
+            모두의 창업 지원서 제출 전에 반드시 출원하세요.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Patent -->
+    <section id="patent">
+      <div class="container">
+        <div class="tag tag-purple">Layer 2</div>
+        <h2>특허 (Patent) &mdash; 핵심 알고리즘을 보호하라</h2>
+        <p class="section-desc">BM(비즈니스 방법) 특허로 스코어링 시스템과 게임 메커닉의 기술적 구현을 보호</p>
+
+        <div class="ip-card patent fade-in">
+          <div class="ip-header">
+            <div>
+              <h3>임시출원 (가출원) &mdash; 20만원으로 12개월의 시간을 산다</h3>
+              <p style="font-size: 14px; color: var(--text-dim);">
+                2023년 3월 30일 도입된 <strong>임시명세서 출원 제도</strong>. 어떤 파일 형식(PDF, HWP, PPT, JPG)으로든
+                아이디어를 제출하면 출원일이 확정됩니다. 정식 명세서는 12개월(보정은 14개월) 이내에 제출하면 됩니다.
+              </p>
+            </div>
+            <div class="ip-meta">
+              <span class="ip-meta-item">비용: <strong class="money">200,000원</strong></span>
+              <span class="ip-meta-item">준비: <strong>1~2일</strong></span>
+              <span class="ip-meta-item">우선도: <strong style="color:var(--red);">즉시</strong></span>
+            </div>
+          </div>
+
+          <div class="what-protect can">
+            <h4>특허로 보호 가능한 것 (기술적 구현이 구체적일 때)</h4>
+            <ul>
+              <li><strong>스코어링 알고리즘:</strong> 실시간 시장 데이터를 판타지 포인트로 변환하는 구체적 연산 방법</li>
+              <li><strong>드래프트/옥션 메커니즘:</strong> 실시간 주식 드래프트의 서버-클라이언트 통신 아키텍처</li>
+              <li><strong>리스크/리워드 계산 엔진:</strong> 판타지 스포츠 메커닉과 금융 지표를 결합한 포트폴리오 스코어링</li>
+              <li><strong>매치메이킹/리그 관리:</strong> 참가자 매칭, 리그 밸런싱 서버 사이드 알고리즘</li>
+              <li><strong>어뷰징 방지:</strong> 조작/부정행위 탐지 기술적 방법</li>
+            </ul>
+          </div>
+
+          <div class="what-protect cant">
+            <h4>특허로 보호 불가능한 것</h4>
+            <ul>
+              <li>"주식으로 판타지리그를 한다"는 추상적 아이디어 자체</li>
+              <li>하드웨어 없이 순수한 비즈니스 방법만</li>
+              <li>수학 공식 그 자체 (기술적 적용이 아닌 경우)</li>
+            </ul>
+          </div>
+
+          <div style="padding: 14px; background: rgba(248,113,113,0.06); border-left: 3px solid var(--red); border-radius: 0 8px 8px 0; margin-top: 12px; font-size: 13px;">
+            <strong style="color: var(--red);">주의 &mdash; 선행 특허 존재:</strong>
+            미국 Fandex Inc.가 "판타지 스포츠 주식 거래소 플랫폼" 관련 US Patent No. 11,436,674를 보유하고 있습니다.
+            한국 출원 시 이와 차별화된 기술적 구현을 강조해야 합니다 (예: AI 기반 다차원 스코어링, KRX 공공데이터 연동 방식 등).
+          </div>
+
+          <h4 style="margin-top: 20px; font-size: 13px; color: var(--text-dim);">임시출원 → 정식출원 로드맵</h4>
+          <ul class="ip-steps">
+            <li data-num="1"><strong>지금 (D-0):</strong> 스코어링 알고리즘, 시스템 아키텍처를 PPT/PDF로 정리</li>
+            <li data-num="2"><strong>임시출원 제출:</strong> 특허로(patent.go.kr)에서 200,000원에 출원. 출원일 확보</li>
+            <li data-num="3"><strong>12개월 이내:</strong> 변리사와 함께 정식 명세서(청구항 포함) 작성하여 제출</li>
+            <li data-num="4"><strong>우선심사 청구:</strong> 6개월 내 심사 시작 가능 (일반은 12~18개월)</li>
+            <li data-num="5"><strong>등록 결정:</strong> 총 18~24개월 (우선심사 시 12~15개월)</li>
+          </ul>
+
+          <div class="cost-wrapper">
+            <table class="cost-table">
+              <thead><tr><th>항목</th><th>비용</th><th>비고</th></tr></thead>
+              <tbody>
+                <tr><td>임시출원 관납료</td><td class="money">200,000원</td><td>어떤 파일 형식이든 제출 가능</td></tr>
+                <tr><td>정식출원 관납료</td><td class="money">46,000원</td><td>임시출원 12개월 이내</td></tr>
+                <tr><td>심사청구료 (~5개 청구항)</td><td class="money">~370,000원</td><td>개인/소기업 70% 감면 가능</td></tr>
+                <tr><td>설정등록료 (1~3년)</td><td class="money">~66,000원</td><td></td></tr>
+                <tr><td>변리사 수수료 (출원+등록)</td><td>~2,700,000원 + VAT</td><td>정식출원 시. 임시출원은 DIY 가능</td></tr>
+                <tr class="cost-total"><td>합계 (임시출원만)</td><td class="money">200,000원</td><td>정식 전환 시 총 ~3,400,000원</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Copyright -->
+    <section id="copyright">
+      <div class="container">
+        <div class="tag tag-cyan">Layer 3</div>
+        <h2>저작권 (Copyright) &mdash; 만들면 자동으로 발생</h2>
+        <p class="section-desc">한국은 무방식주의: 창작 즉시 저작권 발생. 등록은 증거력 강화용</p>
+
+        <div class="ip-card copyright fade-in">
+          <div class="ip-header">
+            <div>
+              <h3>자동 보호 + 등록으로 증거력 확보</h3>
+              <p style="font-size: 14px; color: var(--text-dim);">
+                소스코드, UI 디자인, 그래픽, 텍스트 등 창작물은 만드는 순간 저작권이 발생합니다.
+                별도 등록 없이도 보호받지만, <strong>한국저작권위원회(CROS)에 등록하면 창작일 추정력과 제3자 대항력</strong>을 확보합니다.
+              </p>
+            </div>
+            <div class="ip-meta">
+              <span class="ip-meta-item">비용: <strong class="money">53,600원</strong></span>
+              <span class="ip-meta-item">기간: <strong>1~2주</strong></span>
+              <span class="ip-meta-item">우선도: <strong style="color:var(--orange);">MVP 완성 후</strong></span>
+            </div>
+          </div>
+
+          <div class="what-protect can">
+            <h4>자동 보호되는 것</h4>
+            <ul>
+              <li>소스코드 전체</li>
+              <li>UI/UX 디자인, 그래픽 에셋, 아이콘, 일러스트</li>
+              <li>사운드, 음악, 효과음</li>
+              <li>캐릭터 디자인, 게임 세계관 설정</li>
+              <li>튜토리얼/설명 텍스트</li>
+              <li>데이터베이스 구조 (편집저작물)</li>
+              <li>게임 룰의 "선택과 배열의 유기적 조합"이 창작성을 가질 때 (대법원 판례)</li>
+            </ul>
+          </div>
+
+          <div class="what-protect cant">
+            <h4>보호되지 않는 것</h4>
+            <ul>
+              <li>"드래프트로 주식을 고른다"는 추상적 아이디어</li>
+              <li>일반적/범용적 UI 패턴</li>
+              <li>순수 기능적 요소</li>
+            </ul>
+          </div>
+
+          <div class="cost-wrapper">
+            <table class="cost-table">
+              <thead><tr><th>항목</th><th>비용</th><th>비고</th></tr></thead>
+              <tbody>
+                <tr><td>프로그램 저작권 등록 (온라인)</td><td class="money">50,000원</td><td>cros.or.kr에서 신청</td></tr>
+                <tr><td>등록면허세</td><td class="money">3,600원</td><td></td></tr>
+                <tr class="cost-total"><td>합계</td><td class="money">53,600원</td><td>오프라인 시 60,000 + 3,600원</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="padding: 14px; background: rgba(34,211,238,0.06); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; margin-top: 12px; font-size: 13px;">
+            <strong style="color: var(--accent);">한국 대법원 판례 (2019):</strong>
+            게임 룰 자체는 아이디어지만, 여러 룰이 <strong>"선택되고 배열된 유기적 조합"</strong>으로서 창작자의 창의적 의도를 반영할 때는
+            표현으로서 보호 가능. Stock Heist League의 독자적인 룰 조합(스코어링 시스템 + 드래프트 + H2H)은 이 판례에 부합할 가능성이 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Trade Secret -->
+    <section id="secret">
+      <div class="container">
+        <div class="tag tag-yellow">Layer 4</div>
+        <h2>영업비밀 (Trade Secret) &mdash; 공개하지 않는 것이 최선의 보호</h2>
+        <p class="section-desc">특허로 시스템 아키텍처를 보호하되, 세부 파라미터는 영업비밀로 유지</p>
+
+        <div class="ip-card secret fade-in">
+          <div class="ip-header">
+            <div>
+              <h3>특허 + 영업비밀 = 이중 보호 전략</h3>
+              <p style="font-size: 14px; color: var(--text-dim);">
+                특허는 공개 대가로 독점권을 얻지만, 영업비밀은 비공개인 한 영구히 보호됩니다.
+                <strong>시스템 아키텍처(특허) + 세부 튜닝 값(영업비밀)</strong>로 이중 보호하는 것이 최적 전략입니다.
+              </p>
+            </div>
+            <div class="ip-meta">
+              <span class="ip-meta-item">비용: <strong class="money">무료~최소</strong></span>
+              <span class="ip-meta-item">우선도: <strong style="color:var(--red);">즉시</strong></span>
+            </div>
+          </div>
+
+          <div class="what-protect can">
+            <h4>영업비밀로 보호할 것</h4>
+            <ul>
+              <li>스코어링 알고리즘의 <strong>구체적 가중치와 파라미터</strong> (변동성 x 0.23 + 거래량 x 0.17 등)</li>
+              <li>AI 모델의 학습 데이터 및 하이퍼파라미터</li>
+              <li>매치메이킹 밸런싱의 세부 로직</li>
+              <li>유저 행동 분석 데이터 및 인사이트</li>
+              <li>사업 전략, 파트너십 계획, 수익 모델 세부사항</li>
+            </ul>
+          </div>
+
+          <h4 style="margin-top: 16px; font-size: 13px; color: var(--text-dim);">영업비밀 보호 3요건 (모두 충족 필수)</h4>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 8px;">
+            <div style="background: var(--surface2); border-radius: 10px; padding: 16px; text-align: center;">
+              <div style="color: var(--yellow); font-weight: 700; font-size: 14px; margin-bottom: 6px;">1. 비공지성</div>
+              <div style="font-size: 12px; color: var(--text-dim);">공개되지 않은 정보일 것. NDA 하에 공유하는 것은 OK</div>
+            </div>
+            <div style="background: var(--surface2); border-radius: 10px; padding: 16px; text-align: center;">
+              <div style="color: var(--yellow); font-weight: 700; font-size: 14px; margin-bottom: 6px;">2. 경제적 유용성</div>
+              <div style="font-size: 12px; color: var(--text-dim);">경쟁 우위를 제공하거나 독자 개발에 상당한 비용이 필요할 것</div>
+            </div>
+            <div style="background: var(--surface2); border-radius: 10px; padding: 16px; text-align: center;">
+              <div style="color: var(--yellow); font-weight: 700; font-size: 14px; margin-bottom: 6px;">3. 비밀관리성</div>
+              <div style="font-size: 12px; color: var(--text-dim);">객관적으로 인식 가능한 비밀 관리 조치를 취할 것</div>
+            </div>
+          </div>
+
+          <h4 style="margin-top: 16px; font-size: 13px; color: var(--text-dim);">구체적 실행 방법</h4>
+          <ul class="ip-steps">
+            <li data-num="1">모든 알고리즘 문서에 <strong>"CONFIDENTIAL / 대외비"</strong> 표기</li>
+            <li data-num="2">접근 권한 제한 &mdash; 비밀번호 보호, Git 리포지토리 접근 제어</li>
+            <li data-num="3">외부 공유 시 반드시 <strong>NDA(비밀유지계약서)</strong> 체결 (멘토 포함)</li>
+            <li data-num="4"><strong>영업비밀 원본증명 서비스</strong> (tradesecret.or.kr) 활용 &mdash; 타임스탬프 해시 생성으로 존재 시점 증명</li>
+            <li data-num="5">개발 로그에 상세 타임스탬프 기록 유지</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Non-Legal Moat -->
+    <section id="moat">
+      <div class="container">
+        <div class="tag tag-green">Layer 5</div>
+        <h2>비법적 해자 (Business Moat) &mdash; 법보다 강한 방어</h2>
+        <p class="section-desc">법적 보호는 기본이지만, 진짜 방어벽은 실행 속도와 네트워크 효과입니다</p>
+
+        <div class="shield-box fade-in">
+          <h3>솔직한 현실: 아이디어는 보호할 수 없다</h3>
+          <ul class="shield-list">
+            <li>"MLB 판타지리그를 주식에 적용한다"는 컨셉은 이미 해외에서 시도됨 (Fantasy Stock League, MoneyCloud 등). 이 컨셉 자체는 법적 독점이 불가능합니다.</li>
+            <li>하지만 <strong>아이디어를 처음 생각한 사람이 아니라, 처음 제대로 실행한 사람이 이깁니다.</strong> Facebook은 최초의 SNS가 아니었고, iPhone은 최초의 스마트폰이 아니었습니다.</li>
+            <li>컨셉을 보고 카피한다 해도, <strong>스코어링 시스템 설계, UX 디테일, 데이터 파이프라인, 유저 커뮨니티</strong>는 카피할 수 없습니다. 이것들이 진짜 해자입니다.</li>
+          </ul>
+        </div>
+
+        <div class="moat-grid fade-in">
+          <div class="moat-card">
+            <div class="moat-icon" style="color: var(--red);">&#9889;</div>
+            <h4>실행 속도</h4>
+            <p>누군가 컨셉을 보고 따라하려면 최소 6~12개월. 그 사이 MVP를 출시하고 유저를 확보하면 선점 효과 발생.</p>
+          </div>
+          <div class="moat-card">
+            <div class="moat-icon" style="color: var(--accent);">&#128279;</div>
+            <h4>네트워크 효과</h4>
+            <p>판타지리그는 본질적으로 소셜 게임. 친구가 있는 플랫폼에서 플레이. 유저가 유저를 데려오는 구조 = 전환 비용 급상승.</p>
+          </div>
+          <div class="moat-card">
+            <div class="moat-icon" style="color: var(--yellow);">&#128202;</div>
+            <h4>데이터 해자</h4>
+            <p>시즌별 유저 데이터, 리그 히스토리, 행동 패턴은 시간이 쌓일수록 가치 증가. 후발주자가 복제 불가능.</p>
+          </div>
+          <div class="moat-card">
+            <div class="moat-icon" style="color: var(--accent2);">&#129302;</div>
+            <h4>AI 스코어링 고도화</h4>
+            <p>실사용 데이터로 학습되는 AI 모델. 운영할수록 정확도 증가. 코드를 복사해도 학습 데이터와 경험은 복사 불가.</p>
+          </div>
+          <div class="moat-card">
+            <div class="moat-icon" style="color: var(--green);">&#129309;</div>
+            <h4>파트너십</h4>
+            <p>한국 증권사, 금융 교육 기관과의 B2B 파트너십. 독점 데이터 피드 계약. 후발주자의 진입 장벽.</p>
+          </div>
+          <div class="moat-card">
+            <div class="moat-icon" style="color: var(--accent3);">&#127942;</div>
+            <h4>브랜드 인지도</h4>
+            <p>"주식 판타지리그 = Stock Heist League"를 카테고리 대명사로 만들면 후발주자는 항상 "짝퉁" 취급.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Government Support -->
+    <section id="gov">
+      <div class="container">
+        <div class="tag tag-purple">Bonus</div>
+        <h2>정부 IP 지원 프로그램 &mdash; 비용 부담을 줄여라</h2>
+        <p class="section-desc">창업기업을 위한 IP 출원 비용 지원 및 무료 상담 프로그램</p>
+
+        <div class="gov-card fade-in">
+          <h4>IP 나래 프로그램</h4>
+          <div class="gov-sub">특허청 + 한국발명진흥회 | 최대 1,750만원 지원</div>
+          <p>업력 7년 이하 중소기업 대상. 정부 70% 부담 (최대 2,500만원 중 1,750만원). IP 기술전략 컨설팅 + IP 사업전략 컨설팅. 100일간 진행.</p>
+          <div class="gov-tags">
+            <span class="gov-tag">접수: 2월, 6월</span>
+            <span class="gov-tag">pms.ripc.org</span>
+            <span class="gov-tag">042-481-8622</span>
+          </div>
+        </div>
+
+        <div class="gov-card fade-in">
+          <h4>IP 디딤돌 프로그램</h4>
+          <div class="gov-sub">개인/초기 발명자 대상</div>
+          <p>아이디어 상담 → 창출 교육 → 고도화 → 권리화 → 3D 모델링 → 창업 컨설팅까지 풀 파이프라인 지원.</p>
+          <div class="gov-tags">
+            <span class="gov-tag">개인 발명자 대상</span>
+            <span class="gov-tag">무료</span>
+          </div>
+        </div>
+
+        <div class="gov-card fade-in">
+          <h4>관납료 감면 제도</h4>
+          <div class="gov-sub">개인 발명자 및 소기업</div>
+          <p>특허/상표/디자인 출원 시 관납료 <strong>최대 70% 감면</strong>. 별도 신청 필요.</p>
+          <div class="gov-tags">
+            <span class="gov-tag">자동 적용 아님 — 감면 신청 필요</span>
+          </div>
+        </div>
+
+        <div class="gov-card fade-in">
+          <h4>무료 상담 채널</h4>
+          <div class="gov-sub">즉시 활용 가능</div>
+          <p>
+            <strong>특허청 콜센터:</strong> 1544-8080<br>
+            <strong>지역지식재산센터:</strong> 1661-1900 (ripc.org)<br>
+            <strong>KIPRIS 선행기술조사:</strong> kipris.or.kr (무료)<br>
+            <strong>영업비밀 원본증명:</strong> tradesecret.or.kr (무료)
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Action Plan -->
+    <section id="action">
+      <div class="container">
+        <div class="tag tag-red">Action Plan</div>
+        <h2>실행 계획 &mdash; 총 비용 35만원으로 4중 방어벽 구축</h2>
+        <p class="section-desc">모두의 창업 지원서 제출 전에 완료해야 할 IP 보호 작업</p>
+
+        <div class="cost-wrapper fade-in" style="margin-bottom: 32px;">
+          <table class="cost-table">
+            <thead><tr><th>우선순위</th><th>조치</th><th>비용</th><th>시점</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><span style="color:var(--red); font-weight:700;">1</span></td>
+                <td><strong>특허 임시출원</strong> &mdash; 스코어링 알고리즘/시스템 아키텍처</td>
+                <td class="money">200,000원</td>
+                <td>즉시 (1~2일 준비)</td>
+              </tr>
+              <tr>
+                <td><span style="color:var(--red); font-weight:700;">2</span></td>
+                <td><strong>상표 출원</strong> &mdash; "Stock Heist League" + 한글명 (2개 류)</td>
+                <td class="money">~104,000원</td>
+                <td>즉시 (1일)</td>
+              </tr>
+              <tr>
+                <td><span style="color:var(--orange); font-weight:700;">3</span></td>
+                <td><strong>영업비밀 보호 체계</strong> &mdash; 문서 마킹, NDA 템플릿, 접근제어</td>
+                <td class="money">무료</td>
+                <td>즉시 (1~2일)</td>
+              </tr>
+              <tr>
+                <td><span style="color:var(--orange); font-weight:700;">4</span></td>
+                <td><strong>저작권 등록</strong> &mdash; CROS에 프로그램 저작권 등록</td>
+                <td class="money">53,600원</td>
+                <td>MVP 코드 완성 후</td>
+              </tr>
+              <tr>
+                <td><span style="color:var(--yellow); font-weight:700;">5</span></td>
+                <td><strong>정식 특허 출원</strong> &mdash; 변리사와 함께 BM 특허 명세서 작성</td>
+                <td>~3,000,000원</td>
+                <td>임시출원 후 12개월 이내</td>
+              </tr>
+              <tr>
+                <td><span style="color:var(--green); font-weight:700;">6</span></td>
+                <td><strong>디자인 등록</strong> &mdash; 핵심 UI 화면 (화상디자인)</td>
+                <td>~250,000원</td>
+                <td>UI 확정 후</td>
+              </tr>
+              <tr>
+                <td><span style="color:var(--green); font-weight:700;">7</span></td>
+                <td><strong>IP 나래 프로그램 신청</strong> &mdash; 정부 IP 전략 컨설팅 지원</td>
+                <td class="money">무료 (정부 70% 부담)</td>
+                <td>6월 접수기</td>
+              </tr>
+              <tr class="cost-total">
+                <td></td>
+                <td><strong>모두의 창업 지원 전 즉시 필요 비용 (1~3번)</strong></td>
+                <td class="money" style="font-size: 16px;">~304,000원</td>
+                <td style="color: var(--red);">지원서 제출 전 완료</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="action-timeline fade-in">
+          <div class="action-item urgent">
+            <div class="action-when">지금 즉시 (D-0)</div>
+            <h4>특허 임시출원 준비</h4>
+            <p>스코어링 알고리즘(6개 지표 변환 로직), 시스템 아키텍처(드래프트/매치업/웨이버 서버 구조), 데이터 파이프라인을 PPT 또는 PDF로 정리. 기술적 구현이 구체적일수록 좋음. 수식, 플로우차트, 시퀀스 다이어그램 포함.</p>
+            <div class="action-cost">200,000원 &mdash; patent.go.kr에서 전자출원</div>
+          </div>
+
+          <div class="action-item urgent">
+            <div class="action-when">이번 주 내 (D-0 ~ D-3)</div>
+            <h4>상표 출원</h4>
+            <p>KIPRIS에서 "Stock Heist League" 선행 검색 → 특허로에서 제9류(소프트웨어) + 제41류(게임 서비스) 출원. 한글 브랜드명도 함께 출원.</p>
+            <div class="action-cost">~104,000원 (2개 류 출원 관납료)</div>
+          </div>
+
+          <div class="action-item soon">
+            <div class="action-when">지원서 제출 전 (D-3 ~ D-7)</div>
+            <h4>영업비밀 보호 체계 수립</h4>
+            <p>모든 알고리즘 문서에 "CONFIDENTIAL" 표기. NDA 템플릿 준비 (멘토/심사위원용). Git 리포 접근 제어 설정. tradesecret.or.kr에서 원본증명 등록.</p>
+            <div class="action-cost">무료</div>
+          </div>
+
+          <div class="action-item soon">
+            <div class="action-when">모두의 창업 지원서 제출</div>
+            <h4>"한 줄 아이디어"를 비공개로 설정</h4>
+            <p>상세 내용은 어차피 비공개. 한 줄 아이디어도 비공개로 설정하여 초기 노출 최소화. 핵심 알고리즘이나 구체적 스코어링 방식은 지원서에 포함하지 않음 &mdash; "AI 기반 다차원 스코어링"처럼 추상적으로만 기술.</p>
+          </div>
+
+          <div class="action-item later">
+            <div class="action-when">MVP 완성 후</div>
+            <h4>저작권 등록</h4>
+            <p>CROS(cros.or.kr)에서 프로그램 저작권 등록. 소스코드의 창작일과 저작자를 공적으로 증명.</p>
+            <div class="action-cost">53,600원</div>
+          </div>
+
+          <div class="action-item ongoing">
+            <div class="action-when">지속적으로</div>
+            <h4>비법적 해자 구축</h4>
+            <p>빠른 MVP 출시 → 유저 확보 → 네트워크 효과 → 데이터 축적 → AI 고도화 → 파트너십. 이 선순환이 가장 강력한 방어벽.</p>
+          </div>
+        </div>
+
+        <div class="warn-box fade-in">
+          <h4>최종 핵심 메시지</h4>
+          <p style="color: var(--text-bright); font-size: 15px;">
+            <strong>35만원이면 4중 방어벽(상표 + 특허 임시출원 + 영업비밀 + 저작권)의 기초를 세울 수 있습니다.</strong>
+          </p>
+          <p>
+            하지만 법적 보호는 "최소한의 보험"일 뿐입니다. 진짜 방어는 <strong>실행 속도</strong>입니다.
+            아이디어를 본 누군가가 카피하려면 최소 6~12개월이 필요합니다.
+            그 시간 동안 MVP를 출시하고, 유저를 확보하고, 데이터를 쌓으면 &mdash; 그것이 어떤 특허보다 강한 해자가 됩니다.
+          </p>
+          <p style="font-size: 12px; margin-top: 8px;">
+            "아이디어를 숨기는 데 쓰는 에너지를 실행에 쓰라" &mdash; 하지만 35만원짜리 보험은 꼭 들어두라.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>
+        Stock Heist League &mdash; IP Protection Strategy |
+        <a href="index.html">경쟁 환경 리서치</a> |
+        <a href="strategy.html">전략 조언</a>
+      </p>
+      <p style="margin-top: 6px;">2026.04.07</p>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => { if (scrollY >= s.offsetTop - 80) current = s.id; });
+      navLinks.forEach(l => { l.classList.toggle('active', l.getAttribute('href') === `#${current}`); });
+    });
+  </script>
+
+</body>
+</html>
