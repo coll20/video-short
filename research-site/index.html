@@ -1083,10 +1083,12 @@
     .draft-stock-price.up { color: #dc2626; }
     .draft-stock-price.down { color: #2563eb; }
     .draft-stock-change {
-      font-weight: 400; font-size: 9px; margin-left: 2px;
+      font-weight: 600; font-size: 9px; margin-left: 3px; display: inline-flex; align-items: center; gap: 1px;
     }
     .draft-stock-change.up { color: #dc2626; }
     .draft-stock-change.down { color: #2563eb; }
+    .draft-stock-change .arrow { font-size: 7px; }
+    .draft-stock-change .sep { margin: 0 2px; opacity: 0.5; }
     .draft-stock-stats {
       font-family: 'Noto Sans KR', sans-serif;
       font-size: 9px; color: #6b7280; margin-top: 1px;
@@ -1662,7 +1664,7 @@
           <div class="draft-stock-row" data-ticker="005930">
             <div class="mock-logo" style="background:#1428A0;">S</div>
             <div class="draft-stock-info">
-              <div class="draft-stock-name">삼성전자 <span class="draft-stock-price up">220,500원</span><span class="draft-stock-change up">(+3,500)</span></div>
+              <div class="draft-stock-name">삼성전자 <span class="draft-stock-price up">220,500원</span><span class="draft-stock-change up"><span class="arrow">▲</span>3,500<span class="sep">|</span>+1.61%</span></div>
               <div class="draft-stock-stats">PER 33.55 &middot; 시총 1,286조 &middot; 배당수익률 0.76%</div>
             </div>
             <div class="draft-stock-pick-tag" style="background:#3b82f6;">PICK!</div>
@@ -1670,7 +1672,7 @@
           <div class="draft-stock-row" data-ticker="000660">
             <div class="mock-logo" style="background:#E60012;">SK</div>
             <div class="draft-stock-info">
-              <div class="draft-stock-name">SK하이닉스 <span class="draft-stock-price down">1,286,000원</span><span class="draft-stock-change down">(-18,000)</span></div>
+              <div class="draft-stock-name">SK하이닉스 <span class="draft-stock-price down">1,286,000원</span><span class="draft-stock-change down"><span class="arrow">▼</span>18,000<span class="sep">|</span>-1.38%</span></div>
               <div class="draft-stock-stats">PER 21.81 &middot; 시총 916조 &middot; 배당수익률 0.23%</div>
             </div>
             <div class="draft-stock-pick-tag" style="background:#a78bfa;">PICK!</div>
@@ -1678,7 +1680,7 @@
           <div class="draft-stock-row" data-ticker="035420">
             <div class="mock-logo" style="background:#03C75A;">N</div>
             <div class="draft-stock-info">
-              <div class="draft-stock-name">NAVER <span class="draft-stock-price up">211,000원</span><span class="draft-stock-change up">(+2,500)</span></div>
+              <div class="draft-stock-name">NAVER <span class="draft-stock-price up">211,000원</span><span class="draft-stock-change up"><span class="arrow">▲</span>2,500<span class="sep">|</span>+1.20%</span></div>
               <div class="draft-stock-stats">PER 17.05 &middot; 시총 33조 &middot; 배당수익률 1.25%</div>
             </div>
             <div class="draft-stock-pick-tag" style="background:#22d3ee;">PICK!</div>
@@ -1686,7 +1688,7 @@
           <div class="draft-stock-row" data-ticker="105560">
             <div class="mock-logo" style="background:#FFC800;color:#111;">KB</div>
             <div class="draft-stock-info">
-              <div class="draft-stock-name">KB금융 <span class="draft-stock-price down">160,500원</span><span class="draft-stock-change down">(-1,500)</span></div>
+              <div class="draft-stock-name">KB금융 <span class="draft-stock-price down">160,500원</span><span class="draft-stock-change down"><span class="arrow">▼</span>1,500<span class="sep">|</span>-0.93%</span></div>
               <div class="draft-stock-stats">PER 10.62 &middot; 시총 59조 &middot; 배당수익률 2.72%</div>
             </div>
             <div class="draft-stock-pick-tag" style="background:#fb923c;">PICK!</div>
@@ -1694,7 +1696,7 @@
           <div class="draft-stock-row" data-ticker="005380">
             <div class="mock-logo" style="background:#002C5F;">H</div>
             <div class="draft-stock-info">
-              <div class="draft-stock-name">현대차 <span class="draft-stock-price up">531,000원</span><span class="draft-stock-change up">(+8,000)</span></div>
+              <div class="draft-stock-name">현대차 <span class="draft-stock-price up">531,000원</span><span class="draft-stock-change up"><span class="arrow">▲</span>8,000<span class="sep">|</span>+1.53%</span></div>
               <div class="draft-stock-stats">PER 15.03 &middot; 시총 108조 &middot; 배당수익률 1.88%</div>
             </div>
             <div class="draft-stock-pick-tag" style="background:#ec4899;">PICK!</div>
@@ -1702,7 +1704,7 @@
           <div class="draft-stock-row" data-ticker="033780">
             <div class="mock-logo" style="background:#8C3E2B;">KT</div>
             <div class="draft-stock-info">
-              <div class="draft-stock-name">KT&amp;G <span class="draft-stock-price down">178,300원</span><span class="draft-stock-change down">(-2,200)</span></div>
+              <div class="draft-stock-name">KT&amp;G <span class="draft-stock-price down">178,300원</span><span class="draft-stock-change down"><span class="arrow">▼</span>2,200<span class="sep">|</span>-1.22%</span></div>
               <div class="draft-stock-stats">PER 19.87 &middot; 시총 20조 &middot; 배당수익률 3.37%</div>
             </div>
             <div class="draft-stock-pick-tag" style="background:#f59e0b;">PICK!</div>
