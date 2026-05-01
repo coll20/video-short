@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StockWise League - Short Form Video</title>
+  <title>StockWise League - Short Form Video v5</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
 
@@ -100,6 +100,42 @@
       opacity: 0;
     }
 
+    /* Scene Bridge: Transition */
+    .scene-bridge .bridge-emoji-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+    .scene-bridge .bridge-emoji {
+      font-size: 64px;
+      opacity: 0;
+    }
+    /* 야구공: 실제 야구공 SVG (흰색 가죽 + 빨간 실밥) */
+    .scene-bridge .bridge-emoji.ball-svg {
+      width: 70px;
+      height: 70px;
+      opacity: 0;
+      filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.4))
+              drop-shadow(0 0 10px rgba(255, 255, 255, 0.08));
+    }
+    .scene-bridge .bridge-emoji.ball-svg svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .scene-bridge .bridge-arrow {
+      font-size: 36px;
+      color: #22d3ee;
+      opacity: 0;
+    }
+    .scene-bridge .big-text {
+      opacity: 0;
+    }
+    .scene-bridge .sub-text {
+      opacity: 0;
+    }
+
     /* Scene 2: Problem */
     .scene-2 .problem-stat {
       width: 100%;
@@ -136,6 +172,11 @@
     }
 
     /* Scene 3: Concept reveal */
+    .scene-3 .hook-emoji,
+    .scene-3 .big-text,
+    .scene-3 .sub-text {
+      opacity: 0;
+    }
     .scene-3 .arrow-down {
       font-size: 48px;
       color: #22d3ee;
@@ -465,6 +506,838 @@
       0%, 100% { box-shadow: 0 0 20px rgba(34,211,238,0.2); }
       50% { box-shadow: 0 0 40px rgba(34,211,238,0.4); }
     }
+
+    /* ─────────────────────────────────────────────
+       UI Mockup scenes — 실제 게임 화면 예시
+       ───────────────────────────────────────────── */
+    .scene-ui { padding: 24px 16px; justify-content: flex-start; }
+    .mock-caption-top {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+      color: #f8fafc;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+    .mock-caption-top .hl { color: #22d3ee; }
+    .mock-caption-sub {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 12px;
+      color: #94a3b8;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .mock-phone-ui {
+      background: #f9fafb;
+      color: #111827;
+      border-radius: 14px;
+      padding: 12px;
+      border: 1px solid #334155;
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      gap: 8px;
+    }
+    .mock-caption-bottom {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 12px;
+      color: #cbd5e1;
+      text-align: center;
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+
+    /* Search bar */
+    .mock-searchbar {
+      display: flex; gap: 4px; align-items: center;
+      background: #f3f4f6; padding: 6px 8px; border-radius: 8px;
+    }
+    .mock-search-text {
+      flex: 1; font-size: 11px; color: #9ca3af;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+    .mock-btn {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 9px; color: #4b5563; font-weight: 600;
+      background: #fff; border: 1px solid #e5e7eb;
+      padding: 3px 6px; border-radius: 5px;
+      white-space: nowrap;
+    }
+    .mock-btn.active { background: #2563eb; color: #fff; border-color: #2563eb; }
+    .mock-btn.star { color: #f59e0b; border-color: #fcd34d; }
+
+    /* Chip row */
+    .mock-chip-row { display: flex; gap: 4px; overflow: hidden; }
+    .mock-chip {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 10px; padding: 4px 8px; border-radius: 10px;
+      background: #fff; border: 1px solid #e5e7eb; color: #4b5563;
+      font-weight: 600; white-space: nowrap;
+    }
+    .mock-chip.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+
+    /* Stock row */
+    .mock-stock-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 10px; background: #fff; border-radius: 8px;
+      border: 1px solid #f3f4f6;
+    }
+    .mock-logo {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 12px;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: #fff; flex-shrink: 0;
+    }
+    .mock-stock-info { flex: 1; overflow: hidden; }
+    .mock-stock-name {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 12px; font-weight: 700; color: #111827;
+    }
+    .mock-stock-meta {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 10px; color: #9ca3af;
+      display: flex; gap: 4px; align-items: center; margin-top: 1px;
+    }
+    .mock-match-badge {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 9px; background: #f0fdf4; color: #15803d;
+      padding: 1px 5px; border-radius: 8px; font-weight: 700;
+    }
+    .mock-stock-right { text-align: right; }
+    .mock-stock-price {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 12px; font-weight: 700; color: #111827;
+    }
+    .mock-stock-change {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 10px; font-weight: 700;
+    }
+    .mock-stock-change.up { color: #b91c1c; }
+    .mock-stock-change.down { color: #1d4ed8; }
+    .mock-star-cell {
+      font-size: 16px; color: #f59e0b; flex-shrink: 0;
+    }
+    .mock-star-cell.empty { color: #d1d5db; }
+
+    /* Draft header */
+    .mock-draft-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 12px; background: #fff; border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+    .mock-draft-round {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 12px; font-weight: 700; color: #111827;
+    }
+    .mock-draft-round .turn {
+      font-size: 10px; color: #3b82f6; margin-left: 4px;
+    }
+    .mock-draft-timer {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 18px; font-weight: 900; color: #b91c1c;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Draft my picks row */
+    .mock-my-picks {
+      padding: 8px; background: #fff; border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+    .mock-label-small {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 9px; color: #6b7280; font-weight: 700;
+      margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .mock-picks-row { display: flex; gap: 6px; }
+    .mock-pick-card {
+      flex: 1; background: #f9fafb; border-radius: 6px; padding: 6px 4px;
+      text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+    }
+    .mock-pick-card .mock-logo { width: 22px; height: 22px; font-size: 9px; }
+    .mock-pick-name {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 9px; color: #111827; font-weight: 600;
+    }
+
+    /* Decision Journal */
+    .mock-journal {
+      padding: 10px; background: #fff; border-radius: 8px;
+      border: 2px solid #3b82f6;
+    }
+    .mock-journal-label {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 10px; color: #3b82f6; font-weight: 900;
+      margin-bottom: 6px;
+    }
+    .mock-prompt-chips { display: flex; gap: 4px; margin-bottom: 8px; flex-wrap: wrap; }
+    .mock-prompt-chip {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 9px; padding: 3px 6px; border-radius: 10px;
+      background: #fff; border: 1px solid #e5e7eb; color: #4b5563;
+      font-weight: 600; white-space: nowrap;
+    }
+    .mock-prompt-chip.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+    .mock-journal-input {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 11px; color: #111827; background: #f9fafb;
+      padding: 8px; border-radius: 6px;
+      margin-bottom: 6px; line-height: 1.4;
+    }
+    .mock-journal-count {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 9px; color: #10b981; text-align: right; font-weight: 700;
+    }
+    .mock-draft-cta {
+      background: #3b82f6; color: #fff; text-align: center;
+      padding: 10px; border-radius: 8px;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 12px; font-weight: 700;
+    }
+
+    /* League header */
+    .mock-league-header {
+      padding: 12px; border-radius: 8px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: #fff;
+    }
+    .mock-league-name {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 14px; font-weight: 900;
+    }
+    .mock-league-sub {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 10px; opacity: 0.85; margin-top: 2px;
+    }
+
+    /* Rank row */
+    .mock-rank-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 10px; background: #fff; border-radius: 8px;
+      border: 1px solid #f3f4f6;
+    }
+    .mock-rank-row.me { border: 2px solid #3b82f6; background: #eff6ff; }
+    .mock-rank-num {
+      width: 24px; height: 24px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-weight: 900; font-size: 11px;
+      background: #f3f4f6; color: #4b5563;
+      flex-shrink: 0;
+    }
+    .mock-rank-num.r1 { background: #fbbf24; color: #fff; }
+    .mock-rank-num.r2 { background: #9ca3af; color: #fff; }
+    .mock-rank-num.r3 { background: #f59e0b; color: #fff; }
+    .mock-rank-avatar {
+      width: 24px; height: 24px; border-radius: 50%;
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-weight: 700; font-size: 10px; flex-shrink: 0;
+    }
+    .mock-rank-name {
+      flex: 1;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 12px; font-weight: 700; color: #111827;
+    }
+    .mock-rank-me-tag {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 9px; color: #fff; background: #3b82f6;
+      padding: 2px 5px; border-radius: 8px; font-weight: 700;
+      margin-left: 4px;
+    }
+    .mock-rank-return {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 13px; font-weight: 900;
+    }
+    .mock-rank-return.up { color: #b91c1c; }
+    .mock-rank-return.down { color: #1d4ed8; }
+
+    /* Season progress */
+    .mock-season-progress {
+      padding: 10px 12px; background: #fff; border-radius: 8px;
+      border: 1px solid #f3f4f6;
+    }
+    .mock-progress-label {
+      display: flex; justify-content: space-between;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 10px; color: #6b7280; font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .mock-progress-bar {
+      height: 4px; background: #e5e7eb; border-radius: 2px; overflow: hidden;
+    }
+    .mock-progress-fill {
+      height: 100%; width: 48%;
+      background: linear-gradient(90deg, #22d3ee, #a78bfa);
+      border-radius: 2px;
+    }
+    .mock-season-sub {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 9px; color: #6b7280; margin-top: 6px;
+      display: flex; justify-content: space-between;
+    }
+    .mock-season-sub .trade-chip {
+      background: #fef3c7; color: #92400e; padding: 2px 6px; border-radius: 8px;
+      font-weight: 700;
+    }
+
+    /* ═════════════════════════════════════════════
+       Time Machine Draft (다크 + 보라)
+       ═════════════════════════════════════════════ */
+    .mock-phone-ui.tm-shell {
+      background: radial-gradient(circle at top, #1e1b4b, #0a0e17 80%);
+      color: #f8fafc;
+      border-color: #7c3aed;
+    }
+    .tm-hero {
+      text-align: center; padding: 4px 0 2px;
+    }
+    .tm-clock {
+      font-size: 32px; margin-bottom: 2px;
+    }
+    .tm-select-label {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 10px; color: #c4b5fd; text-transform: uppercase; letter-spacing: 1.5px;
+      font-weight: 700;
+    }
+    .tm-scenarios {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+    }
+    .tm-scenario {
+      padding: 8px 10px; border-radius: 8px;
+      background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.35);
+      position: relative;
+    }
+    .tm-scenario.active {
+      background: linear-gradient(135deg, rgba(124,58,237,0.45), rgba(236,72,153,0.3));
+      border: 2px solid #a78bfa;
+      box-shadow: 0 0 16px rgba(167,139,250,0.4);
+    }
+    .tm-date {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 13px; font-weight: 900; color: #f8fafc;
+    }
+    .tm-event {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 10px; color: #cbd5e1; margin-top: 2px; line-height: 1.3;
+    }
+    .tm-chip {
+      position: absolute; top: 4px; right: 4px;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 8px; padding: 2px 6px; border-radius: 8px;
+      background: #f472b6; color: #fff; font-weight: 700;
+    }
+    .tm-context {
+      padding: 10px; border-radius: 8px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(167,139,250,0.3);
+    }
+    .tm-context-title {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 11px; font-weight: 700; color: #a78bfa; margin-bottom: 6px;
+    }
+    .tm-context-stats { display: flex; justify-content: space-between; gap: 8px; }
+    .tm-stat { flex: 1; text-align: center; }
+    .tm-stat-label {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 9px; color: #94a3b8;
+    }
+    .tm-stat-value {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 13px; font-weight: 900; color: #f8fafc;
+      font-variant-numeric: tabular-nums;
+      margin-top: 2px;
+    }
+    .tm-cta {
+      text-align: center; padding: 10px;
+      background: linear-gradient(135deg, #a78bfa, #f472b6);
+      color: #fff; border-radius: 8px;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-weight: 900; font-size: 12px;
+      box-shadow: 0 4px 12px rgba(167,139,250,0.4);
+    }
+
+    /* ═════════════════════════════════════════════
+       Legends Lens (크림 배경 + 금색 강조)
+       ═════════════════════════════════════════════ */
+    .mock-phone-ui.lens-shell {
+      background: linear-gradient(180deg, #fefce8, #fef9c3);
+      color: #111827;
+      border-color: #d97706;
+    }
+    .lens-stock-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 10px; background: #fff; border-radius: 8px;
+      border: 1px solid #fde68a;
+    }
+    .lens-stock-header .mock-logo { width: 32px; height: 32px; font-size: 12px; }
+    .lens-legend {
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 10px; background: #fff; border-radius: 8px;
+      border: 1px solid #fde68a;
+    }
+    .lens-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 900; font-size: 13px;
+      font-family: 'Noto Sans KR', sans-serif;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .lens-info { flex: 1; min-width: 0; }
+    .lens-name {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 11px; font-weight: 700; color: #111827;
+    }
+    .lens-verdict {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 11px; font-weight: 900;
+      margin-top: 4px;
+      display: inline-block;
+      padding: 2px 8px; border-radius: 10px;
+    }
+    .lens-verdict.pass { background: #dcfce7; color: #15803d; }
+    .lens-verdict.fail { background: #f3f4f6; color: #6b7280; }
+    .lens-reason {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 10px; color: #6b7280; margin-top: 4px; line-height: 1.4;
+    }
+    .lens-conclusion {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 11px; text-align: center;
+      color: #78350f; font-weight: 700;
+      padding: 8px; background: rgba(251,191,36,0.15);
+      border-radius: 8px;
+      border: 1px dashed #d97706;
+    }
+
+    /* ═════════════════════════════════════════════
+       Decision Playback (차분한 민트 + 코랄)
+       ═════════════════════════════════════════════ */
+    .mock-phone-ui.pb-shell {
+      background: linear-gradient(180deg, #f0fdf4, #ecfdf5);
+      color: #111827;
+      border-color: #059669;
+    }
+    .pb-header {
+      padding: 10px 12px; border-radius: 8px;
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: #fff;
+    }
+    .pb-season {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 11px; opacity: 0.85;
+    }
+    .pb-my-rank {
+      display: flex; align-items: baseline; gap: 8px; margin-top: 4px;
+    }
+    .pb-my-rank .pb-label {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 10px; opacity: 0.85;
+    }
+    .pb-my-rank .pb-rank {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 15px; font-weight: 900;
+    }
+    .pb-my-rank .pb-return {
+      margin-left: auto;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 17px; font-weight: 900;
+      font-variant-numeric: tabular-nums;
+    }
+    .pb-pick-card {
+      padding: 8px 10px; background: #fff; border-radius: 8px;
+      border-left: 3px solid #10b981;
+    }
+    .pb-pick-card.fail { border-left-color: #f87171; background: #fef2f2; }
+    .pb-pick-head {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 4px;
+    }
+    .pb-pick-head .mock-logo { width: 22px; height: 22px; font-size: 10px; }
+    .pb-pick-name {
+      flex: 1;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 12px; font-weight: 700; color: #111827;
+    }
+    .pb-pick-tag {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 9px; padding: 2px 6px; border-radius: 8px; font-weight: 700;
+    }
+    .pb-pick-tag.good { background: #dcfce7; color: #15803d; }
+    .pb-pick-tag.bad { background: #fee2e2; color: #b91c1c; }
+    .pb-reason {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 10px; color: #6b7280; font-style: italic;
+      margin-bottom: 4px; line-height: 1.4;
+    }
+    .pb-outcome {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 10px; color: #374151;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .pb-pct {
+      font-weight: 900; font-size: 13px;
+      font-variant-numeric: tabular-nums;
+    }
+    .pb-pct.up { color: #b91c1c; }
+    .pb-pct.down { color: #1d4ed8; }
+    .pb-summary {
+      padding: 10px; border-radius: 8px;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid #a7f3d0;
+    }
+    .pb-summary-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 2px 0;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 11px; color: #374151;
+    }
+    .pb-summary-row + .pb-summary-row { margin-top: 4px; padding-top: 4px; border-top: 1px dashed #d1fae5; }
+    .pb-summary-val { font-weight: 900; color: #059669; font-size: 13px; }
+    .pb-summary-val.link { font-size: 11px; text-decoration: underline; cursor: pointer; }
+
+    /* ═════════════════════════════════════════════
+       Draft Simulation (턴제 드래프트 애니메이션)
+       ═════════════════════════════════════════════ */
+    .mock-phone-ui.draft-sim {
+      padding: 10px; gap: 6px;
+    }
+    .draft-top {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 10px; background: #fff; border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+    .draft-timer {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-weight: 900; font-size: 17px;
+      color: #b91c1c; font-variant-numeric: tabular-nums;
+    }
+    .draft-round-label {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 11px; color: #374151; font-weight: 600;
+    }
+    .draft-current-name {
+      color: #3b82f6; font-weight: 900;
+    }
+
+    .draft-order {
+      display: flex; justify-content: space-between;
+      padding: 8px 6px; background: #fff; border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+    .draft-avatar {
+      width: 26px; height: 26px; border-radius: 50%;
+      color: #fff; font-weight: 900; font-size: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Noto Sans KR', sans-serif;
+      transition: all 0.35s ease;
+      flex-shrink: 0;
+    }
+    .draft-avatar.turn-active {
+      transform: scale(1.25);
+      box-shadow: 0 0 0 2px #fff, 0 0 10px rgba(59,130,246,0.7);
+      outline: 2px solid #3b82f6;
+      outline-offset: 2px;
+    }
+    .draft-avatar.done {
+      opacity: 0.35;
+    }
+
+    .draft-stocks {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .draft-stock-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 10px; background: #fff; border-radius: 8px;
+      border: 1px solid #f3f4f6;
+      position: relative; overflow: hidden;
+      transition: all 0.25s ease;
+    }
+    .draft-stock-row .mock-logo { width: 24px; height: 24px; font-size: 10px; }
+    .draft-stock-row.selecting {
+      background: #eff6ff;
+      border-color: #3b82f6;
+      transform: scale(1.02);
+      box-shadow: 0 2px 6px rgba(59,130,246,0.2);
+    }
+    .draft-stock-row.picked {
+      opacity: 0.4;
+    }
+    .draft-stock-row.picked .draft-stock-name {
+      text-decoration: line-through;
+    }
+    .draft-stock-info { flex: 1; min-width: 0; }
+    .draft-stock-name {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 12px; font-weight: 700; color: #111827;
+    }
+    .draft-stock-stats {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 9px; color: #6b7280; margin-top: 1px;
+    }
+    .draft-stock-pick-tag {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 9px; font-weight: 900;
+      padding: 3px 8px; border-radius: 10px;
+      color: #fff;
+      opacity: 0;
+      transform: scale(0.7);
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+    .draft-stock-pick-tag.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* 스탯 디테일 패널 (호버 종목의 상세 지표) */
+    .draft-detail-panel {
+      padding: 10px 12px; background: #fff; border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      min-height: 64px;
+      transition: all 0.3s ease;
+    }
+    .draft-detail-panel.filled {
+      background: linear-gradient(135deg, #eff6ff, #f5f3ff);
+      border-color: #3b82f6;
+    }
+    .draft-detail-empty {
+      display: flex; align-items: center; justify-content: center;
+      gap: 6px; height: 48px;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 11px; color: #9ca3af;
+    }
+    .draft-detail-content { display: none; }
+    .draft-detail-panel.filled .draft-detail-empty { display: none; }
+    .draft-detail-panel.filled .draft-detail-content { display: block; }
+    .draft-detail-header {
+      display: flex; align-items: center; gap: 6px; margin-bottom: 6px;
+    }
+    .draft-detail-header .mock-logo { width: 24px; height: 24px; font-size: 10px; flex-shrink: 0; }
+    .draft-detail-name {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 12px; font-weight: 900; color: #111827;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .draft-detail-inline-stats {
+      display: flex; gap: 8px; margin-left: auto;
+      font-family: 'Noto Sans KR', sans-serif; font-size: 11px;
+    }
+    .draft-detail-inline-stats .k { color: #6b7280; font-weight: 600; }
+    .draft-detail-inline-stats .v { color: #111827; font-weight: 900; font-variant-numeric: tabular-nums; }
+    /* 가상 월봉 차트 (드래프트 디테일) */
+    .draft-detail-chart {
+      margin-top: 6px;
+      padding-top: 6px;
+      border-top: 1px dashed #dbeafe;
+    }
+    .draft-detail-chart-label {
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 9px; color: #6b7280; font-weight: 600;
+      margin-bottom: 3px;
+    }
+    .draft-detail-chart-label .chart-range {
+      color: #9ca3af; font-variant-numeric: tabular-nums;
+    }
+    .draft-detail-chart-svg {
+      width: 100%; height: 44px;
+      background: #fafbfc;
+      border-radius: 4px;
+    }
+    .draft-detail-chart-svg svg {
+      display: block; width: 100%; height: 100%;
+    }
+
+    .draft-my-team {
+      padding: 8px 10px; background: linear-gradient(135deg,#eff6ff,#faf5ff);
+      border-radius: 8px;
+      border: 1px solid #ddd6fe;
+    }
+    .draft-my-team-label {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 10px; color: #6366f1; font-weight: 900;
+      margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .draft-my-picks-row {
+      display: flex; gap: 4px;
+    }
+    .draft-my-pick {
+      flex: 1; aspect-ratio: 1;
+      background: rgba(255,255,255,0.5);
+      border: 1px dashed #c4b5fd;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      color: #a5b4fc; font-size: 12px; font-weight: 700;
+      transition: all 0.4s ease;
+    }
+    .draft-my-pick.filled {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-style: solid;
+      transform: scale(1.05);
+    }
+    .draft-my-pick.filled::after { content: none; }
+    .draft-pick-logo {
+      width: 100%; height: 100%; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 900; font-size: 11px;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    /* ═════════════════════════════════════════════
+       Preseason Simulation — 공부/탐색 장면
+       ═════════════════════════════════════════════ */
+    .mock-phone-ui.preseason-sim { gap: 8px; }
+    .pre-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 12px;
+      background: linear-gradient(135deg, #eff6ff, #eef2ff);
+      border-radius: 8px; border: 1px solid #c7d2fe;
+    }
+    .pre-date {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 11px; color: #6366f1; font-weight: 900;
+    }
+    .pre-progress {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 11px; color: #374151; font-weight: 700;
+      transition: all 0.3s;
+    }
+    .pre-stocks { display: flex; flex-direction: column; gap: 4px; }
+    .pre-stock-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 10px; background: #fff; border-radius: 8px;
+      border: 1px solid #f3f4f6;
+      transition: all 0.3s ease;
+    }
+    .pre-stock-row.focused {
+      background: #eff6ff;
+      border-color: #3b82f6;
+      transform: scale(1.02);
+      box-shadow: 0 2px 8px rgba(59,130,246,0.2);
+    }
+    .pre-stock-row .mock-logo { width: 26px; height: 26px; font-size: 10px; }
+    .pre-stock-info { flex: 1; min-width: 0; }
+    .pre-stock-name {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 12px; font-weight: 700; color: #111827;
+    }
+    .pre-stock-stats {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 10px; color: #6b7280; margin-top: 1px;
+    }
+    .pre-star {
+      font-size: 18px; font-family: 'Noto Sans KR', sans-serif;
+      transition: all 0.3s ease; flex-shrink: 0;
+    }
+    .pre-star.empty { color: #cbd5e1; }
+    .pre-star.filled { color: #f59e0b; transform: scale(1.3); }
+    .pre-notes {
+      padding: 8px 12px;
+      background: linear-gradient(135deg, #fefce8, #fef3c7);
+      border-radius: 8px; border: 1px solid #fde68a;
+    }
+    .pre-notes-label {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 10px; color: #92400e; font-weight: 900;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .pre-notes-items {
+      display: flex; gap: 5px; align-items: center; min-height: 26px;
+      flex-wrap: wrap;
+    }
+    .pre-note-empty {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 10px; color: #a16207; font-style: italic;
+    }
+    .pre-note-logo {
+      width: 24px; height: 24px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 900; font-size: 10px;
+      font-family: 'Noto Sans KR', sans-serif; flex-shrink: 0;
+      animation: noteAdd 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes noteAdd {
+      0% { transform: scale(0) rotate(-120deg); opacity: 0; }
+      100% { transform: scale(1) rotate(0); opacity: 1; }
+    }
+
+    /* ═════════════════════════════════════════════
+       Result Simulation — 시즌 결과 / 레슨런드
+       ═════════════════════════════════════════════ */
+    .mock-phone-ui.result-sim { gap: 8px; padding: 12px; }
+    .res-rank-hero {
+      padding: 14px 12px; border-radius: 10px; text-align: center;
+      background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+      color: #fff;
+      opacity: 0; transform: translateY(15px);
+      transition: all 0.5s ease;
+    }
+    .res-rank-hero.show { opacity: 1; transform: translateY(0); }
+    .res-rank-label {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 10px; opacity: 0.85; text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .res-rank-big {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 24px; font-weight: 900; margin-top: 2px;
+    }
+    .res-rank-return {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 20px; font-weight: 900; margin-top: 4px;
+      color: #86efac;
+    }
+    .res-section-label {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 11px; color: #6b7280; font-weight: 900;
+      margin-bottom: 4px;
+    }
+    .res-pick-card {
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 8px 10px; background: #fff; border-radius: 8px;
+      border-left: 4px solid #10b981;
+      opacity: 0; transform: translateX(-15px);
+      transition: all 0.4s ease;
+    }
+    .res-pick-card.show { opacity: 1; transform: translateX(0); }
+    .res-pick-card.bad {
+      border-left-color: #f87171;
+      background: #fef2f2;
+    }
+    .res-pick-card .mock-logo { width: 28px; height: 28px; font-size: 11px; }
+    .res-pick-info { flex: 1; }
+    .res-pick-name {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 12px; font-weight: 900; color: #111827;
+    }
+    .res-pick-return-up { color: #b91c1c; }
+    .res-pick-return-down { color: #1d4ed8; }
+    .res-pick-lesson {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 10px; color: #6b7280; font-style: italic;
+      margin-top: 3px; line-height: 1.35;
+    }
+    .res-lesson {
+      padding: 10px 12px;
+      background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+      border-radius: 8px;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 12px; color: #065f46;
+      font-weight: 700; text-align: center;
+      border: 1px solid #6ee7b7;
+      opacity: 0; transform: scale(0.95);
+      transition: all 0.4s ease;
+    }
+    .res-lesson.show { opacity: 1; transform: scale(1); }
   </style>
 </head>
 <body>
@@ -476,253 +1349,582 @@
 
     <!-- Progress -->
     <div class="progress-bar" id="progress"></div>
-    <div class="scene-counter" id="counter">1 / 8</div>
+    <div class="scene-counter" id="counter">1 / 13</div>
 
-    <!-- Scene 1: Hook -->
-    <div class="scene scene-1 active" data-duration="5000">
-      <div class="hook-emoji">&#9918;</div>
+    <!-- ═══════════════════════════════════════════════════════════
+         새 영상 v4 (2026.04.16): 감정 흐름 중심 9 scene
+         공감 → 통증 → 호기심 → 해답 → 이해 → 실감 → 욕망 → 가치 → 행동
+         ═══════════════════════════════════════════════════════════ -->
+
+    <!-- Scene 1 · HOOK (공감): 모두가 겪는 순간 -->
+    <div class="scene scene-1 active" data-duration="3500">
+      <div class="hook-emoji">&#128557;</div>
       <div class="big-text">
-        MLB<br>
-        <span class="highlight-cyan">판타지리그</span><br>
-        해보셨나요?
+        주식 시작하고<br>
+        <span class="highlight-orange">후회 안 해본 사람</span>?
       </div>
       <div class="sub-text">
-        북미에서만 5,700만 명이 즐기는<br>
-        그 게임을...
+        …아마 거의 없을 거예요
       </div>
     </div>
 
-    <!-- Scene 2: Twist -->
-    <div class="scene scene-2" data-duration="6000">
-      <div class="big-text" style="font-size: 28px; margin-bottom: 24px;">
-        그런데<br>
-        <span class="highlight-orange">주식 투자</span>하면 떠오르는 건?
-      </div>
-      <div class="problem-stat">
-        <div class="stat-label">
-          <span>한국 주식 투자자 수</span>
-          <span id="stat1-val" style="color: #22d3ee; font-weight:700;">0만</span>
-        </div>
-        <div class="stat-bar-container">
-          <div class="stat-bar-fill" id="stat1" style="background: linear-gradient(90deg, #22d3ee, #34d399);">폭발적 증가</div>
-        </div>
-      </div>
-      <div class="problem-stat">
-        <div class="stat-label">
-          <span>디지털 금융 이해력 (OECD)</span>
-          <span id="stat2-val" style="color: #f87171; font-weight:700;">0점</span>
-        </div>
-        <div class="stat-bar-container">
-          <div class="stat-bar-fill" id="stat2" style="background: linear-gradient(90deg, #f87171, #fb923c);">평균 이하</div>
-        </div>
-      </div>
-      <div class="sub-text" style="margin-top: 24px; font-size: 20px; color: #f87171; font-weight: 700;">
-        투자 인구는 폭증했지만<br>체계적 금융 교육은 따라오지 못했다
-      </div>
-    </div>
-
-    <!-- Scene 3: Concept -->
-    <div class="scene scene-3" data-duration="6000">
-      <div class="big-text" style="font-size: 24px; margin-bottom: 12px;">만약에...</div>
-      <div class="versus-box">
-        <div class="versus-item">
-          <div class="v-emoji">&#9918;</div>
-          <div class="v-label">선수</div>
-          <div class="v-sub">MLB 판타지</div>
-        </div>
-        <div class="versus-eq">=</div>
-        <div class="versus-item" style="border: 2px solid #22d3ee;">
-          <div class="v-emoji">&#128200;</div>
-          <div class="v-label">주식</div>
-          <div class="v-sub">StockWise</div>
-        </div>
-      </div>
-      <div class="big-text" style="font-size: 26px;">
-        <span class="highlight-purple">주식 종목</span>을<br>
-        직접 분석하고 드래프트해서<br>
-        <span class="highlight-cyan">6개월</span> 시즌을 겨룬다면?
-      </div>
-    </div>
-
-    <!-- Scene 4: How it works -->
-    <div class="scene scene-4" data-duration="7000">
+    <!-- Scene 2 · PROBLEM (통증): 늘 반복되는 패턴 -->
+    <div class="scene scene-2" data-duration="4000">
       <div class="big-text" style="font-size: 22px; margin-bottom: 20px;">
-        이렇게 <span class="highlight-cyan">플레이</span>합니다
+        늘 이런 식이었죠
+      </div>
+      <div class="edu-item">
+        <span class="e-icon">&#128188;</span>
+        <div>
+          <div class="e-title" style="color: #f8fafc;">친구가 추천해서 샀더니</div>
+          <div class="e-desc">&nbsp;&nbsp;…며칠 뒤 -5%</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <span class="e-icon">&#128249;</span>
+        <div>
+          <div class="e-title" style="color: #f8fafc;">유튜브 보고 덜컥 매수</div>
+          <div class="e-desc">&nbsp;&nbsp;…갖고 있자니 매일 불안</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <span class="e-icon">&#128546;</span>
+        <div>
+          <div class="e-title" style="color: #f8fafc;">결국 빠른 손절</div>
+          <div class="e-desc">&nbsp;&nbsp;"다시는 안한다…" (며칠 뒤 또 시작)</div>
+        </div>
+      </div>
+      <div class="sub-text" style="margin-top: 20px; font-size: 17px; color: #f87171; font-weight: 700;">
+        우린 늘 <u>잃어봐야</u> 배웠어요
+      </div>
+    </div>
+
+    <!-- Scene 3 · TWIST (호기심): 반대로 생각해보자 -->
+    <div class="scene scene-3" data-duration="3500">
+      <div class="hook-emoji" style="font-size: 80px;">&#128161;</div>
+      <div class="big-text" style="font-size: 24px;">
+        근데 만약<br>
+        <span class="highlight-cyan">실제 투자하기 전에</span><br>
+        색다른 투자 경험을<br>
+        해 볼 수 있다면?
+      </div>
+      <div class="sub-text">
+        돈 한 푼 안 잃고요
+      </div>
+    </div>
+
+    <!-- Scene 4 · REVEAL (해답): 컨셉 공개 -->
+    <div class="scene scene-bridge" data-duration="4000">
+      <div class="bridge-emoji-row">
+        <div class="bridge-emoji ball-svg">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="ballShine" cx="35%" cy="30%" r="75%">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="55%" stop-color="#f5f5f0"/>
+                <stop offset="100%" stop-color="#c9c9bd"/>
+              </radialGradient>
+            </defs>
+            <!-- 공 본체 -->
+            <circle cx="50" cy="50" r="46" fill="url(#ballShine)" stroke="#a8a89c" stroke-width="0.8"/>
+            <!-- 위쪽 실밥 라인 -->
+            <path d="M 14 40 Q 50 22, 86 40" stroke="#c41e3a" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <!-- 아래쪽 실밥 라인 -->
+            <path d="M 14 60 Q 50 78, 86 60" stroke="#c41e3a" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <!-- 실밥 틱 (위쪽) -->
+            <g stroke="#c41e3a" stroke-width="1.6" stroke-linecap="round">
+              <line x1="20" y1="34" x2="24" y2="42"/>
+              <line x1="28" y1="30" x2="32" y2="38"/>
+              <line x1="36" y1="27" x2="40" y2="35"/>
+              <line x1="44" y1="25" x2="48" y2="33"/>
+              <line x1="52" y1="25" x2="56" y2="33"/>
+              <line x1="60" y1="27" x2="64" y2="35"/>
+              <line x1="68" y1="30" x2="72" y2="38"/>
+              <line x1="76" y1="34" x2="80" y2="42"/>
+            </g>
+            <!-- 실밥 틱 (아래쪽) -->
+            <g stroke="#c41e3a" stroke-width="1.6" stroke-linecap="round">
+              <line x1="20" y1="66" x2="24" y2="58"/>
+              <line x1="28" y1="70" x2="32" y2="62"/>
+              <line x1="36" y1="73" x2="40" y2="65"/>
+              <line x1="44" y1="75" x2="48" y2="67"/>
+              <line x1="52" y1="75" x2="56" y2="67"/>
+              <line x1="60" y1="73" x2="64" y2="65"/>
+              <line x1="68" y1="70" x2="72" y2="62"/>
+              <line x1="76" y1="66" x2="80" y2="58"/>
+            </g>
+          </svg>
+        </div>
+        <div class="bridge-arrow">&#10132;</div>
+        <div class="bridge-emoji">&#128200;</div>
+      </div>
+      <div class="logo-text" style="font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 30px; background: linear-gradient(135deg, #22d3ee, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -1px; text-align: center;">
+        StockWise League
+      </div>
+      <div class="big-text" style="font-size: 21px; margin-top: 10px; line-height: 1.45;">
+        <span class="highlight-cyan">야구 판타지 리그</span>처럼<br>
+        주식을 <span class="highlight-purple">드래프트</span>하면서<br>
+        투자를 배우는 리그
+      </div>
+    </div>
+
+    <!-- Scene 5 · FLOW (이해): 플레이 4단계 -->
+    <div class="scene scene-4" data-duration="4000">
+      <div class="big-text" style="font-size: 22px; margin-bottom: 16px;">
+        이렇게 <span class="highlight-cyan">플레이</span>해요
       </div>
       <ul class="mechanic-list">
         <li class="mechanic-item">
+          <span class="m-icon">&#128101;</span>
+          <div>
+            <div class="m-text">1. 리그 만들기 <span style="color: #64748b; font-weight: 400;">(2~10명)</span></div>
+            <div class="m-sub">친구 초대 → 우리만의 시즌 시작</div>
+          </div>
+        </li>
+        <li class="mechanic-item">
           <span class="m-icon">&#128218;</span>
           <div>
-            <div class="m-text">프리시즌 리서치</div>
-            <div class="m-sub">종목 카드로 기업 분석 &middot; 워치리스트 작성</div>
+            <div class="m-text">2. 종목 공부</div>
+            <div class="m-sub">관심 종목 찜하고 내 투자 기준 세우기</div>
           </div>
         </li>
         <li class="mechanic-item">
           <span class="m-icon">&#127919;</span>
           <div>
-            <div class="m-text">스네이크 드래프트</div>
-            <div class="m-sub">분석한 종목을 순서대로 선택 &mdash; 시즌의 핵심</div>
-          </div>
-        </li>
-        <li class="mechanic-item">
-          <span class="m-icon">&#128202;</span>
-          <div>
-            <div class="m-text">6개월 시즌 리그</div>
-            <div class="m-sub">장기 누적 성적으로 순위 경쟁</div>
-          </div>
-        </li>
-        <li class="mechanic-item">
-          <span class="m-icon">&#128260;</span>
-          <div>
-            <div class="m-text">제한적 트레이드</div>
-            <div class="m-sub">월 2~3회만 교체 &rarr; 신중한 의사결정 훈련</div>
-          </div>
-        </li>
-        <li class="mechanic-item">
-          <span class="m-icon">&#128221;</span>
-          <div>
-            <div class="m-text">투자 리포트</div>
-            <div class="m-sub">매월 내 포트폴리오 성과 회고 &middot; 전략 복기</div>
+            <div class="m-text">3. 드래프트 데이</div>
+            <div class="m-sub">순서대로 종목 픽! 이유도 함께 기록</div>
           </div>
         </li>
         <li class="mechanic-item">
           <span class="m-icon">&#127942;</span>
           <div>
-            <div class="m-text">시즌 결산 &amp; 플레이오프</div>
-            <div class="m-sub">장기 성과 기반 최종 우승자 결정</div>
+            <div class="m-text">4. 장기 시즌 <span style="color:#64748b;font-weight:400;">(3~6개월)</span></div>
+            <div class="m-sub">포트폴리오 운영 + 친구들과 순위 경쟁</div>
           </div>
         </li>
       </ul>
     </div>
 
-    <!-- Scene 5: Scoring -->
-    <div class="scene scene-5" data-duration="6000">
+    <!-- Scene 5.5 · UI-LEAGUE 리그 만들기 (★ 신규) -->
+    <div class="scene scene-ui scene-ui-league" data-duration="4000">
+      <div class="mock-caption-top">&#128101; 리그 만들기 — <span class="hl">친구 2~10명</span></div>
+      <div class="mock-caption-sub">친구 초대 → 우리만의 시즌 시작</div>
+      <div class="mock-phone-ui" style="gap:10px; padding:14px 16px;">
+        <!-- 리그 카드 -->
+        <div class="league-card" style="background:linear-gradient(135deg,#eff6ff,#ecfdf5);border-radius:10px;border:1px solid #dbeafe;padding:13px 14px;">
+          <div style="font-family:'Noto Sans KR',sans-serif;font-size:9px;color:#6b7280;font-weight:700;letter-spacing:0.3px;margin-bottom:4px;">리그 이름</div>
+          <div style="font-family:'Noto Sans KR',sans-serif;font-size:15px;font-weight:900;color:#111827;">우리의 첫 시즌 &#9918;</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-top:6px;">
+            <span style="font-family:'Noto Sans KR',sans-serif;font-size:9px;color:#6b7280;">초대 코드</span>
+            <span style="font-family:'SF Mono',Menlo,monospace;font-size:11px;font-weight:700;color:#3b82f6;background:#dbeafe;padding:2px 7px;border-radius:6px;">SW-7Y2K</span>
+          </div>
+        </div>
+        <!-- 멤버 grid 6명 -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
+          <div class="league-member-card" style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 4px;background:#fff;border-radius:8px;border:1px solid #f3f4f6;">
+            <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#06b6d4);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:15px;font-weight:900;">나</div>
+            <div style="font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:700;color:#111827;">나 &#128081;</div>
+          </div>
+          <div class="league-member-card" style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 4px;background:#fff;border-radius:8px;border:1px solid #f3f4f6;">
+            <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#f472b6,#a78bfa);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:15px;font-weight:900;">준</div>
+            <div style="font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:700;color:#111827;">준영</div>
+          </div>
+          <div class="league-member-card" style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 4px;background:#fff;border-radius:8px;border:1px solid #f3f4f6;">
+            <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#34d399,#22d3ee);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:15px;font-weight:900;">서</div>
+            <div style="font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:700;color:#111827;">서연</div>
+          </div>
+          <div class="league-member-card" style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 4px;background:#fff;border-radius:8px;border:1px solid #f3f4f6;">
+            <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#fbbf24,#fb923c);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:15px;font-weight:900;">민</div>
+            <div style="font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:700;color:#111827;">민호</div>
+          </div>
+          <div class="league-member-card" style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 4px;background:#fff;border-radius:8px;border:1px solid #f3f4f6;">
+            <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#a78bfa,#ec4899);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:15px;font-weight:900;">지</div>
+            <div style="font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:700;color:#111827;">지호</div>
+          </div>
+          <div class="league-member-card" style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 4px;background:#fff;border-radius:8px;border:1px solid #f3f4f6;">
+            <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#10b981,#f59e0b);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:15px;font-weight:900;">혁</div>
+            <div style="font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:700;color:#111827;">혁진</div>
+          </div>
+        </div>
+        <!-- 상태 -->
+        <div class="league-status" style="text-align:center;font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:700;color:#15803d;background:rgba(52,211,153,0.12);padding:6px 0;border-radius:8px;">
+          &#9989; 6명 모임 — 시즌 시작 준비 완료
+        </div>
+      </div>
+      <div class="mock-caption-bottom">
+        혼자가 아닌 <span style="color:#22d3ee;font-weight:700;">함께</span> — 야구 판타지처럼
+      </div>
+    </div>
+
+    <!-- Scene 6 · UI-1 프리시즌 미니게임 10개 (v5 신규) -->
+    <div class="scene scene-ui scene-ui-preseason" data-duration="5500">
+      <div class="mock-caption-top">&#128218; 프리시즌 — <span class="hl">종목 공부</span></div>
+      <div class="mock-caption-sub">PER·PBR·섹터 카드 비교로 자기 판단 기준 세우기</div>
+      <div class="mock-phone-ui preseason-sim" style="gap: 6px;">
+        <div class="pre-header">
+          <span class="pre-date">D-14 · 프리시즌 학습 도구</span>
+          <span class="pre-progress" id="preProgress" style="font-size:10px;">&#128218; 6종 도구</span>
+        </div>
+        <!-- 학습 도구 카드 4개 -->
+        <div id="gameCardsTop" style="display:flex; flex-direction:column; gap:5px;">
+          <div class="mini-game-card" style="display:flex;align-items:center;gap:8px;padding:22px 11px;background:#fff;border-radius:8px;border:1px solid #f3f4f6;opacity:0;transform:translateX(-20px);">
+            <div style="font-size:20px;flex-shrink:0;">&#128202;</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:900;color:#111827;">종목 카드</div>
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:9px;color:#6b7280;">PER·PBR·EPS·배당수익률·시총·52주 한 화면</div>
+            </div>
+            <div style="font-family:'Noto Sans KR',sans-serif;font-size:8px;padding:2px 6px;border-radius:8px;background:#dbeafe;color:#1d4ed8;font-weight:700;white-space:nowrap;">기본</div>
+          </div>
+          <div class="mini-game-card" style="display:flex;align-items:center;gap:8px;padding:22px 11px;background:#fff;border-radius:8px;border:1px solid #f3f4f6;opacity:0;transform:translateX(-20px);">
+            <div style="font-size:20px;flex-shrink:0;">&#9878;&#65039;</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:900;color:#111827;">종목 비교 (2~4개)</div>
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:9px;color:#6b7280;">삼성·현대차·KB 나란히 PER/PBR/배당수익률</div>
+            </div>
+            <div style="font-family:'Noto Sans KR',sans-serif;font-size:8px;padding:2px 6px;border-radius:8px;background:#ede9fe;color:#6d28d9;font-weight:700;white-space:nowrap;">비교</div>
+          </div>
+          <div class="mini-game-card" style="display:flex;align-items:center;gap:8px;padding:22px 11px;background:#fff;border-radius:8px;border:1px solid #f3f4f6;opacity:0;transform:translateX(-20px);">
+            <div style="font-size:20px;flex-shrink:0;">&#128211;</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:900;color:#111827;">학습 워크북 8 카드</div>
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:9px;color:#6b7280;">개념 학습 + 내 기준 (예: PER &le; 15)</div>
+            </div>
+            <div style="font-family:'Noto Sans KR',sans-serif;font-size:8px;padding:2px 6px;border-radius:8px;background:#fef3c7;color:#92400e;font-weight:700;white-space:nowrap;">워크북</div>
+          </div>
+          <div class="mini-game-card" style="display:flex;align-items:center;gap:8px;padding:22px 11px;background:#fff;border-radius:8px;border:1px solid #f3f4f6;opacity:0;transform:translateX(-20px);">
+            <div style="font-size:20px;flex-shrink:0;">&#127919;</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:900;color:#111827;">섹터 평균 비교</div>
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:9px;color:#6b7280;">내 종목 vs 같은 섹터 평균 한눈에</div>
+            </div>
+            <div style="font-family:'Noto Sans KR',sans-serif;font-size:8px;padding:2px 6px;border-radius:8px;background:#dcfce7;color:#15803d;font-weight:700;white-space:nowrap;">분석</div>
+          </div>
+          <div class="mini-game-card" style="display:flex;align-items:center;gap:8px;padding:22px 11px;background:#fff;border-radius:8px;border:1px solid #f3f4f6;opacity:0;transform:translateX(-20px);">
+            <div style="font-size:20px;flex-shrink:0;">&#128269;</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:900;color:#111827;">멀티필터 스크리너</div>
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:9px;color:#6b7280;">PER·PBR·배당수익률·시총·섹터·낙폭 6 필터</div>
+            </div>
+            <div style="font-family:'Noto Sans KR',sans-serif;font-size:8px;padding:2px 6px;border-radius:8px;background:#fed7aa;color:#c2410c;font-weight:700;white-space:nowrap;">필터</div>
+          </div>
+          <div class="mini-game-card" style="display:flex;align-items:center;gap:8px;padding:22px 11px;background:#fff;border-radius:8px;border:1px solid #f3f4f6;opacity:0;transform:translateX(-20px);">
+            <div style="font-size:20px;flex-shrink:0;">&#11088;</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:900;color:#111827;">찜종목 모음</div>
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:9px;color:#6b7280;">관심 종목 ★ 모으고 정렬·뷰 전환</div>
+            </div>
+            <div style="font-family:'Noto Sans KR',sans-serif;font-size:8px;padding:2px 6px;border-radius:8px;background:#fce7f3;color:#be185d;font-weight:700;white-space:nowrap;">관심</div>
+          </div>
+        </div>
+        <!-- 하단 요약 배지 -->
+        <div id="gameCardsBadge" style="display:flex;justify-content:center;gap:6px;padding:8px 0;opacity:0;transform:translateY(10px); flex-wrap:wrap;">
+          <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;padding:4px 10px;border-radius:10px;background:rgba(34,211,238,0.15);color:#22d3ee;font-weight:700;">+ 14일 커리큘럼</div>
+          <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;padding:4px 10px;border-radius:10px;background:rgba(167,139,250,0.15);color:#a78bfa;font-weight:700;">+ 미니게임 10종</div>
+          <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;padding:4px 10px;border-radius:10px;background:rgba(52,211,153,0.15);color:#34d399;font-weight:700;">교과서 연계</div>
+        </div>
+      </div>
+      <div class="mock-caption-bottom">
+        <span style="color:#22d3ee;font-weight:700;">개념·기준·비교</span> — 진짜 <span style="color:#a78bfa;font-weight:700;">종목 공부</span>
+      </div>
+    </div>
+
+    <!-- Scene 7 · UI-2 드래프트 데이 (턴제) + Decision Journal -->
+    <div class="scene scene-ui scene-ui-draft" data-duration="10000">
+      <div class="mock-caption-top">&#127919; 드래프트 데이</div>
+      <div class="mock-caption-sub">친구들과 돌아가며 종목을 고릅니다</div>
+      <div class="mock-phone-ui draft-sim">
+        <!-- 상단: 타이머 + 현재 턴 -->
+        <div class="draft-top">
+          <div class="draft-timer" id="draftTimer">&#9200;&#65039; 30초 남음</div>
+          <div class="draft-round-label">Round 3 · <span class="draft-current-name" id="draftCurrentName">나</span> 차례</div>
+        </div>
+        <!-- 드래프트 순서 아바타 -->
+        <div class="draft-order" id="draftOrder">
+          <div class="draft-avatar turn-active" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);" data-name="나">나</div>
+          <div class="draft-avatar" style="background:linear-gradient(135deg,#f472b6,#a78bfa);" data-name="준영">준</div>
+          <div class="draft-avatar" style="background:linear-gradient(135deg,#34d399,#22d3ee);" data-name="서연">서</div>
+          <div class="draft-avatar" style="background:linear-gradient(135deg,#fbbf24,#fb923c);" data-name="민호">민</div>
+          <div class="draft-avatar" style="background:linear-gradient(135deg,#a78bfa,#ec4899);" data-name="지호">지</div>
+          <div class="draft-avatar" style="background:linear-gradient(135deg,#10b981,#f59e0b);" data-name="혁진">혁</div>
+        </div>
+        <!-- 종목 후보 리스트 -->
+        <div class="draft-stocks" id="draftStocks">
+          <div class="draft-stock-row" data-ticker="005930">
+            <div class="mock-logo" style="background:#1428A0;">S</div>
+            <div class="draft-stock-info">
+              <div class="draft-stock-name">삼성전자</div>
+              <div class="draft-stock-stats">PER 33.55 &middot; 시총 1,286조 &middot; 배당수익률 0.76%</div>
+            </div>
+            <div class="draft-stock-pick-tag" style="background:#3b82f6;">PICK!</div>
+          </div>
+          <div class="draft-stock-row" data-ticker="000660">
+            <div class="mock-logo" style="background:#E60012;">SK</div>
+            <div class="draft-stock-info">
+              <div class="draft-stock-name">SK하이닉스</div>
+              <div class="draft-stock-stats">PER 21.81 &middot; 시총 916조 &middot; 배당수익률 0.23%</div>
+            </div>
+            <div class="draft-stock-pick-tag" style="background:#a78bfa;">PICK!</div>
+          </div>
+          <div class="draft-stock-row" data-ticker="035420">
+            <div class="mock-logo" style="background:#03C75A;">N</div>
+            <div class="draft-stock-info">
+              <div class="draft-stock-name">NAVER</div>
+              <div class="draft-stock-stats">PER 17.05 &middot; 시총 33조 &middot; 배당수익률 1.25%</div>
+            </div>
+            <div class="draft-stock-pick-tag" style="background:#22d3ee;">PICK!</div>
+          </div>
+          <div class="draft-stock-row" data-ticker="105560">
+            <div class="mock-logo" style="background:#FFC800;color:#111;">KB</div>
+            <div class="draft-stock-info">
+              <div class="draft-stock-name">KB금융</div>
+              <div class="draft-stock-stats">PER 10.62 &middot; 시총 59조 &middot; 배당수익률 2.72%</div>
+            </div>
+            <div class="draft-stock-pick-tag" style="background:#fb923c;">PICK!</div>
+          </div>
+          <div class="draft-stock-row" data-ticker="005380">
+            <div class="mock-logo" style="background:#002C5F;">H</div>
+            <div class="draft-stock-info">
+              <div class="draft-stock-name">현대차</div>
+              <div class="draft-stock-stats">PER 15.03 &middot; 시총 108조 &middot; 배당수익률 1.88%</div>
+            </div>
+            <div class="draft-stock-pick-tag" style="background:#ec4899;">PICK!</div>
+          </div>
+          <div class="draft-stock-row" data-ticker="033780">
+            <div class="mock-logo" style="background:#8C3E2B;">KT</div>
+            <div class="draft-stock-info">
+              <div class="draft-stock-name">KT&amp;G</div>
+              <div class="draft-stock-stats">PER 19.87 &middot; 시총 20조 &middot; 배당수익률 3.37%</div>
+            </div>
+            <div class="draft-stock-pick-tag" style="background:#f59e0b;">PICK!</div>
+          </div>
+        </div>
+        <!-- 스탯 디테일 패널 -->
+        <div class="draft-detail-panel" id="draftDetail">
+          <div class="draft-detail-empty">
+            <span>&#128065;</span>
+            <span>종목을 탭하면 상세 지표가 펼쳐집니다</span>
+          </div>
+          <div class="draft-detail-content">
+            <div class="draft-detail-header">
+              <div class="mock-logo" id="detailLogo" style="background:#1428A0;">S</div>
+              <div class="draft-detail-name" id="detailName">-</div>
+              <div class="draft-detail-inline-stats">
+                <span><span class="k">PBR</span> <span class="v" id="detailPbr">-</span></span>
+                <span><span class="k">EPS</span> <span class="v" id="detailEps">-</span></span>
+                <span><span class="k">ROE</span> <span class="v" id="detailRoe">-</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 내 팀 슬롯 -->
+        <div class="draft-my-team">
+          <div class="draft-my-team-label">&#128202; 내 포트폴리오 (Round 3)</div>
+          <div class="draft-my-picks-row" id="draftMySlots">
+            <div class="draft-my-pick filled"><div class="draft-pick-logo" style="background:#FAE100;color:#111;">K</div></div>
+            <div class="draft-my-pick filled"><div class="draft-pick-logo" style="background:#C8102E;">LG</div></div>
+            <div class="draft-my-pick">?</div>
+            <div class="draft-my-pick">?</div>
+            <div class="draft-my-pick">?</div>
+          </div>
+        </div>
+        <!-- Decision Journal (v5 추가) -->
+        <div class="mock-journal" id="draftJournal" style="opacity:0; transform:translateY(10px); transition:all 0.5s ease;">
+          <div class="mock-journal-label">&#128221; Decision Journal &mdash; 왜 이 종목을?</div>
+          <div class="mock-prompt-chips">
+            <div class="mock-prompt-chip active">&#128161; 선택 이유</div>
+            <div class="mock-prompt-chip">&#128200; 기대 시나리오</div>
+            <div class="mock-prompt-chip">&#9888;&#65039; 리스크</div>
+          </div>
+          <div class="mock-journal-input" id="journalTyping">
+            <span style="color:#9ca3af;">|</span>
+          </div>
+          <div class="mock-journal-count" id="journalCount">0 / 15자 이상</div>
+        </div>
+      </div>
+      <div class="mock-caption-bottom">
+        종목을 고르고 <span style="color:#3b82f6;font-weight:700;">이유도 함께 기록</span> — 나중에 복기
+      </div>
+    </div>
+
+    <!-- Scene 9 · UI-3 리그 대시보드 (중간 순위) -->
+    <div class="scene scene-ui scene-ui-result" data-duration="5000">
+      <div class="mock-caption-top">&#128202; 리그 대시보드 &mdash; <span class="hl">중간 순위</span></div>
+      <div class="mock-caption-sub">시즌 진행 중 · 모든 참여자 순위 항상 확인</div>
+      <div class="mock-phone-ui" style="gap:8px; padding:14px 16px;">
+        <!-- 시즌 진행도 카드 -->
+        <div id="dashProgress" style="background:linear-gradient(135deg,#eff6ff,#ecfdf5);border-radius:10px;border:1px solid #dbeafe;padding:12px 13px;opacity:0;transform:translateY(-10px);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span style="font-family:'Noto Sans KR',sans-serif;font-size:12px;font-weight:900;color:#111827;">우리의 첫 시즌 &#9918;</span>
+            <span style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;color:#3b82f6;">D-54 / D-180</span>
+          </div>
+          <div style="background:#dbeafe;border-radius:6px;height:8px;overflow:hidden;">
+            <div id="dashProgressFill" style="width:0%;height:100%;background:linear-gradient(90deg,#3b82f6,#06b6d4);border-radius:6px;"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
+            <span style="font-family:'Noto Sans KR',sans-serif;font-size:9px;color:#6b7280;font-weight:700;">시즌 30% 진행</span>
+            <span style="font-family:'Noto Sans KR',sans-serif;font-size:9px;color:#15803d;font-weight:700;">&#9203;&#65039; 다음 트레이드 D-7</span>
+          </div>
+        </div>
+        <!-- 6명 순위 리스트 -->
+        <div id="dashRanking" style="display:flex;flex-direction:column;gap:4px;">
+          <div class="dash-rank-row" style="display:flex;align-items:center;gap:8px;padding:9px 10px;background:#fff;border-radius:8px;border:1px solid #f3f4f6;opacity:0;transform:translateX(-15px);">
+            <span style="font-size:16px;flex-shrink:0;width:18px;text-align:center;">&#129351;</span>
+            <span style="font-family:'Noto Sans KR',sans-serif;font-size:12px;font-weight:900;color:#111827;flex:1;">준영</span>
+            <span style="font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:900;color:#b91c1c;">+23.4%</span>
+          </div>
+          <div class="dash-rank-row" style="display:flex;align-items:center;gap:8px;padding:9px 10px;background:#fff;border-radius:8px;border:1px solid #f3f4f6;opacity:0;transform:translateX(-15px);">
+            <span style="font-size:16px;flex-shrink:0;width:18px;text-align:center;">&#129352;</span>
+            <span style="font-family:'Noto Sans KR',sans-serif;font-size:12px;font-weight:900;color:#111827;flex:1;">서연</span>
+            <span style="font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:900;color:#b91c1c;">+18.2%</span>
+          </div>
+          <div class="dash-rank-row" style="display:flex;align-items:center;gap:8px;padding:9px 10px;background:#fff;border-radius:8px;border:1px solid #f3f4f6;opacity:0;transform:translateX(-15px);">
+            <span style="font-size:16px;flex-shrink:0;width:18px;text-align:center;">&#129353;</span>
+            <span style="font-family:'Noto Sans KR',sans-serif;font-size:12px;font-weight:900;color:#111827;flex:1;">민호</span>
+            <span style="font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:900;color:#b91c1c;">+15.6%</span>
+          </div>
+          <div class="dash-rank-row dash-rank-mine" style="display:flex;flex-direction:column;gap:5px;padding:11px 10px;background:linear-gradient(135deg,#dbeafe,#cffafe);border-radius:8px;border:1.5px solid #3b82f6;opacity:0;transform:translateX(-15px);">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:16px;flex-shrink:0;width:18px;text-align:center;color:#3b82f6;">&#9733;</span>
+              <span style="font-family:'Noto Sans KR',sans-serif;font-size:12px;font-weight:900;color:#111827;flex:1;">나 (4위)</span>
+              <span style="font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:900;color:#b91c1c;">+12.1%</span>
+            </div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;padding-left:26px;">
+              <span style="font-family:'Noto Sans KR',sans-serif;font-size:8px;padding:2px 6px;border-radius:8px;background:rgba(167,139,250,0.2);color:#7c3aed;font-weight:700;">최대 하락 -8%</span>
+              <span style="font-family:'Noto Sans KR',sans-serif;font-size:8px;padding:2px 6px;border-radius:8px;background:rgba(52,211,153,0.2);color:#059669;font-weight:700;">분산 5섹터</span>
+            </div>
+          </div>
+          <div class="dash-rank-row" style="display:flex;align-items:center;gap:8px;padding:9px 10px;background:#fff;border-radius:8px;border:1px solid #f3f4f6;opacity:0;transform:translateX(-15px);">
+            <span style="font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:900;color:#9ca3af;flex-shrink:0;width:18px;text-align:center;">5</span>
+            <span style="font-family:'Noto Sans KR',sans-serif;font-size:12px;font-weight:900;color:#111827;flex:1;">지호</span>
+            <span style="font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:900;color:#b91c1c;">+5.3%</span>
+          </div>
+          <div class="dash-rank-row" style="display:flex;align-items:center;gap:8px;padding:9px 10px;background:#fff;border-radius:8px;border:1px solid #f3f4f6;opacity:0;transform:translateX(-15px);">
+            <span style="font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:900;color:#9ca3af;flex-shrink:0;width:18px;text-align:center;">6</span>
+            <span style="font-family:'Noto Sans KR',sans-serif;font-size:12px;font-weight:900;color:#111827;flex:1;">혁진</span>
+            <span style="font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:900;color:#1d4ed8;">-2.3%</span>
+          </div>
+        </div>
+      </div>
+      <div class="mock-caption-bottom">
+        매일 순위 + 진행도 확인 — <span style="color:#22d3ee;font-weight:700;">끝까지 흔들리지 않게</span>
+      </div>
+    </div>
+
+    <!-- Scene 10 · SOCIAL (진입 장벽): 친구 둘이면 충분 -->
+    <div class="scene scene-5" data-duration="4000">
+      <div class="big-text" style="font-size: 22px; margin-bottom: 8px;">
+        친구 <span class="highlight-purple">둘 이상</span>만 있어도 시작
+      </div>
+      <div class="sub-text" style="margin-bottom: 22px; font-size: 13px;">
+        소모임도 큰 그룹도 모두 OK! — 친구 2명부터
+      </div>
+      <div class="social-card" style="background:#fff;border-radius:14px;padding:18px 16px;width:88%;max-width:300px;border:1px solid #e5e7eb;">
+        <!-- 멤버 카운트 -->
+        <div style="text-align:center;margin-bottom:14px;">
+          <div style="font-family:'Noto Sans KR',sans-serif;font-size:11px;color:#6b7280;font-weight:700;letter-spacing:0.3px;">우리의 첫 시즌 &#9918;</div>
+          <div style="font-family:'Noto Sans KR',sans-serif;font-weight:900;color:#3b82f6;line-height:1;margin-top:6px;">
+            <span id="socialCount" style="font-size:42px;">1</span><span style="font-size:18px;color:#9ca3af;font-weight:700;"> / 10명</span>
+          </div>
+        </div>
+        <!-- 슬롯 grid (5x2) -->
+        <div id="socialSlots" style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:14px;">
+          <div class="social-slot" style="aspect-ratio:1;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#06b6d4);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:900;">나</div>
+          <div class="social-slot empty" style="aspect-ratio:1;border-radius:50%;background:#f3f4f6;border:1.5px dashed #d1d5db;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:700;">+</div>
+          <div class="social-slot empty" style="aspect-ratio:1;border-radius:50%;background:#f3f4f6;border:1.5px dashed #d1d5db;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:700;">+</div>
+          <div class="social-slot empty" style="aspect-ratio:1;border-radius:50%;background:#f3f4f6;border:1.5px dashed #d1d5db;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:700;">+</div>
+          <div class="social-slot empty" style="aspect-ratio:1;border-radius:50%;background:#f3f4f6;border:1.5px dashed #d1d5db;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:700;">+</div>
+          <div class="social-slot empty" style="aspect-ratio:1;border-radius:50%;background:#f3f4f6;border:1.5px dashed #d1d5db;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:700;">+</div>
+          <div class="social-slot empty" style="aspect-ratio:1;border-radius:50%;background:#f3f4f6;border:1.5px dashed #d1d5db;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:700;">+</div>
+          <div class="social-slot empty" style="aspect-ratio:1;border-radius:50%;background:#f3f4f6;border:1.5px dashed #d1d5db;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:700;">+</div>
+          <div class="social-slot empty" style="aspect-ratio:1;border-radius:50%;background:#f3f4f6;border:1.5px dashed #d1d5db;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:700;">+</div>
+          <div class="social-slot empty" style="aspect-ratio:1;border-radius:50%;background:#f3f4f6;border:1.5px dashed #d1d5db;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:700;">+</div>
+        </div>
+        <!-- 상태 배지 -->
+        <div id="socialStatus" style="text-align:center;font-family:'Noto Sans KR',sans-serif;font-size:12px;font-weight:900;padding:10px;border-radius:8px;background:#fef3c7;color:#92400e;">
+          친구 1명만 더 부르면 시작 가능!
+        </div>
+      </div>
+    </div>
+
+    <!-- Scene 10 · GROWTH (가치): 시즌 후 나의 성장 -->
+    <div class="scene scene-6" data-duration="4000">
+      <div class="big-text" style="font-size: 24px; margin-bottom: 14px;">
+        한 시즌이 끝나면…
+      </div>
+      <div class="edu-item" style="border-left-color: #22d3ee;">
+        <span class="e-icon">&#127919;</span>
+        <div>
+          <div class="e-title" style="color: #f8fafc; font-size: 16px;">나만의 투자 기준</div>
+          <div class="e-desc">&nbsp;&nbsp;프리시즌 종목 공부 + 드래프트 경험으로 기준 습득</div>
+        </div>
+      </div>
+      <div class="edu-item" style="border-left-color: #a78bfa;">
+        <span class="e-icon">&#128221;</span>
+        <div>
+          <div class="e-title" style="color: #f8fafc; font-size: 16px;">Decision Journal 복기</div>
+          <div class="e-desc">&nbsp;&nbsp;"내가 왜 이 종목을 골랐지?" — 이유 vs 결과 대조</div>
+        </div>
+      </div>
+      <div class="edu-item" style="border-left-color: #fbbf24;">
+        <span class="e-icon">&#9993;&#65039;</span>
+        <div>
+          <div class="e-title" style="color: #f8fafc; font-size: 16px;">3개월 후 나에게 온 편지</div>
+          <div class="e-desc">&nbsp;&nbsp;드래프트 전날 쓴 편지가 시즌 종료 시 자동 개봉</div>
+        </div>
+      </div>
+      <div class="edu-item" style="border-left-color: #34d399;">
+        <span class="e-icon">&#128176;</span>
+        <div>
+          <div class="e-title" style="color: #f8fafc; font-size: 16px;">돈 한 푼 안 잃고</div>
+          <div class="e-desc">&nbsp;&nbsp;실전 감각을 기른 뒤 진짜 투자 시작</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scene 11 · IMPACT: 교육 가치 + 사회적 의미 (v5 업데이트) -->
+    <div class="scene scene-7" data-duration="4000">
       <div class="big-text" style="font-size: 22px; margin-bottom: 6px;">
-        <span class="highlight-orange">장기 성과</span>를<br>
-        다차원으로 측정
+        그냥 게임이 아니에요
       </div>
       <div class="sub-text" style="margin-bottom: 20px; font-size: 14px;">
-        단순 수익률이 아닌, 진짜 투자 실력을 평가하는 AI 스코어링
+        진짜 <span class="highlight-cyan">금융 공부</span>가 됩니다
       </div>
-      <div class="score-grid">
-        <div class="score-card">
-          <div class="s-mlb">안정적 수익</div>
-          <div class="s-icon">&#128200;</div>
-          <div class="s-stock">누적 수익률</div>
-        </div>
-        <div class="score-card">
-          <div class="s-mlb">위험 대비 수익</div>
-          <div class="s-icon">&#9878;&#65039;</div>
-          <div class="s-stock">수익 효율 점수</div>
-        </div>
-        <div class="score-card">
-          <div class="s-mlb">최대 손실 방어</div>
-          <div class="s-icon">&#128737;&#65039;</div>
-          <div class="s-stock">최대 하락 방어력</div>
-        </div>
-        <div class="score-card">
-          <div class="s-mlb">분산의 힘</div>
-          <div class="s-icon">&#127793;</div>
-          <div class="s-stock">포트폴리오 분산도</div>
-        </div>
-        <div class="score-card">
-          <div class="s-mlb">안정 수익 기여</div>
-          <div class="s-icon">&#128176;</div>
-          <div class="s-stock">배당수익률</div>
-        </div>
-        <div class="score-card">
-          <div class="s-mlb">섹터 초과 성과</div>
-          <div class="s-icon">&#127775;</div>
-          <div class="s-stock">섹터 상대수익</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Scene 6: Education effects -->
-    <div class="scene scene-6" data-duration="7000">
-      <div class="big-text" style="font-size: 22px; margin-bottom: 20px;">
-        <span class="highlight-cyan">고르기 전에</span><br>공부하게 만드는<br>게임 구조
-      </div>
-      <div class="edu-item">
+      <div class="edu-item" style="border-left-color: #fbbf24;">
         <span class="e-icon">&#128218;</span>
         <div>
-          <div class="e-title">기업 분석 역량</div>
-          <div class="e-desc">드래프트 전 종목 카드로 재무·섹터·실적을 직접 분석</div>
-          <div class="e-game">기존 모의투자: 매매 후 학습 / StockWise: 선택 전 학습</div>
+          <div class="e-title" style="color: #f8fafc; font-size: 15px;">금융교육 교보재로 활용 가능</div>
+          <div class="e-desc">&nbsp;&nbsp;고교 '금융과 경제생활' 교과과정과 병행 사용 가능</div>
         </div>
       </div>
-      <div class="edu-item">
-        <span class="e-icon">&#128202;</span>
+      <div class="edu-item" style="border-left-color: #22d3ee;">
+        <span class="e-icon">&#127891;</span>
         <div>
-          <div class="e-title">포트폴리오 설계</div>
-          <div class="e-desc">드래프트 중 실시간 분산도 피드백 → 섹터 균형 체득</div>
-          <div class="e-game">한 섹터 몰빵 시 경고 → "왜 분산해야 하는지" 체감</div>
+          <div class="e-title" style="color: #f8fafc; font-size: 15px;">학교 · 대학 · 증권사 연수에 활용 가능</div>
+          <div class="e-desc">&nbsp;&nbsp;관리 대시보드 + 사용현황 등 리포트 지원 가능</div>
         </div>
       </div>
-      <div class="edu-item">
-        <span class="e-icon">&#9878;&#65039;</span>
+      <div class="edu-item" style="border-left-color: #a78bfa;">
+        <span class="e-icon">&#127760;</span>
         <div>
-          <div class="e-title">장기 투자 마인드셋</div>
-          <div class="e-desc">6개월 시즌 + 제한적 트레이드 → 장기 보유의 가치 체험</div>
-          <div class="e-game">잦은 매매 = 페널티 → "거래 비용이 수익을 갉아먹는다" 학습</div>
-        </div>
-      </div>
-      <div class="edu-item">
-        <span class="e-icon">&#129504;</span>
-        <div>
-          <div class="e-title">투자 편향 교정</div>
-          <div class="e-desc">매월 투자 리포트로 자기 성향 객관화 → 편향 인지</div>
-          <div class="e-game">"당신의 스타일: 가치투자형" → 행동경제학적 자기 인식</div>
-        </div>
-      </div>
-      <div class="edu-item">
-        <span class="e-icon">&#128101;</span>
-        <div>
-          <div class="e-title">소셜 러닝</div>
-          <div class="e-desc">리그 동료의 포트폴리오 전략을 보며 다양한 관점 학습</div>
-          <div class="e-game">시즌 리그 = 6개월간 서로의 전략에서 지속적 배움</div>
+          <div class="e-title" style="color: #f8fafc; font-size: 15px;">공부 기반 판타지 주식 게임</div>
+          <div class="e-desc">&nbsp;&nbsp;한국 시장 활성화 사례 미확인 — 글로벌 확장 준비</div>
         </div>
       </div>
     </div>
 
-    <!-- Scene 7: Evidence + Impact -->
-    <div class="scene scene-7" data-duration="7000">
-      <div class="big-text" style="font-size: 22px; margin-bottom: 20px;">
-        <span class="highlight-purple">학술 연구</span>가<br>증명하는 효과
-      </div>
-      <div class="evidence-card" id="ev1">
-        <div class="ev-icon">&#128200;</div>
-        <div class="ev-stat">거래 활동 +5.17%</div>
-        <div class="ev-desc">게이미피케이션이 투자 거래량을<br>유의미하게 증가시킴</div>
-        <div class="ev-source">Chapkovski et al., Management Science</div>
-      </div>
-      <div class="evidence-card" id="ev2">
-        <div class="ev-icon">&#128161;</div>
-        <div class="ev-stat">투자 편향 감소</div>
-        <div class="ev-desc">모의투자 게이미피케이션으로<br>과잉확신 편향 & 처분효과 유의미 감소</div>
-        <div class="ev-source">Senol & Onay, J. of Behavioral and Experimental Finance, 2023</div>
-      </div>
-      <div class="evidence-card" id="ev3">
-        <div class="ev-icon">&#128201;&#8596;&#65039;&#128200;</div>
-        <div class="ev-stat" style="font-size: 18px; background: linear-gradient(135deg, #a78bfa, #f472b6); -webkit-background-clip: text; background-clip: text;">장기 vs 단타, 직접 비교해보세요</div>
-        <div class="ev-desc">같은 드래프트, 다른 운용 방식<br>시즌 결산에서 내 눈으로 확인하는 투자의 진실</div>
-      </div>
-    </div>
-
-    <!-- Scene 8: CTA -->
-    <div class="scene scene-8" data-duration="8000">
-      <div style="font-size: 60px; margin-bottom: 16px;">&#127891;</div>
-      <div class="logo-text">STOCKWISE LEAGUE</div>
+    <!-- Scene 12 · CTA (행동): 시작하자 (v5 업데이트) -->
+    <div class="scene scene-8" data-duration="4000">
+      <div style="font-size: 56px; margin-bottom: 14px;">&#127881;</div>
+      <div class="logo-text">StockWise League</div>
       <div class="tagline">
-        장기 투자를<br>
-        <span style="color: #34d399;">소셜 경쟁</span>으로<br>
-        <span style="color: #22d3ee;">체험하는 최초의 게임</span>
+        <span style="color: #fbbf24;">프리시즌 종목 공부</span>로 기초 다지고<br>
+        <span style="color: #22d3ee;">드래프트</span>로 종목 고르고<br>
+        <span style="color: #a78bfa;">장기 시즌</span>으로 함께 투자실력 향상
       </div>
-      <div class="sub-text" style="margin-bottom: 16px; font-size: 14px; color: #94a3b8; line-height: 1.6;">
-        고르기 전에 공부하게 만드는<br>
-        세계 최초 장기투자형 판타지리그 교육 플랫폼
+      <div class="sub-text" style="margin-bottom: 18px; font-size: 14px;">
+        친구 2명 이상 &middot; 첫 시즌 준비 중
       </div>
-      <div class="cta-badge">금융 문해력의 게임화</div>
+      <div class="cta-badge">&#9200;&#65039; Coming Soon</div>
     </div>
 
     <!-- Controls -->
@@ -773,65 +1975,556 @@
 
     function animateScene(index) {
       switch(index) {
-        case 0: // Hook
+        case 0: { // Scene 1 HOOK - 공감
           const emoji = document.querySelector('.scene-1 .hook-emoji');
           const text1 = document.querySelector('.scene-1 .big-text');
           const sub1 = document.querySelector('.scene-1 .sub-text');
-          emoji.style.animation = 'none'; emoji.offsetHeight; emoji.style.animation = 'bounceIn 0.6s ease forwards';
-          text1.style.animation = 'none'; text1.offsetHeight; text1.style.animation = 'slideUp 0.6s 0.3s ease forwards';
-          sub1.style.animation = 'none'; sub1.offsetHeight; sub1.style.animation = 'slideUp 0.6s 0.6s ease forwards';
+          if (emoji) { emoji.style.animation = 'none'; emoji.style.opacity = '0'; emoji.offsetHeight; emoji.style.animation = 'bounceIn 0.6s ease forwards'; }
+          if (text1) { text1.style.animation = 'none'; text1.style.opacity = '0'; text1.offsetHeight; text1.style.animation = 'slideUp 0.6s 0.3s ease forwards'; }
+          if (sub1) { sub1.style.animation = 'none'; sub1.style.opacity = '0'; sub1.offsetHeight; sub1.style.animation = 'slideUp 0.6s 0.6s ease forwards'; }
           break;
+        }
 
-        case 1: // Problem stats
-          const s1 = document.getElementById('stat1');
-          const s2 = document.getElementById('stat2');
-          const v1 = document.getElementById('stat1-val');
-          const v2 = document.getElementById('stat2-val');
-          s1.style.width = '0%'; s2.style.width = '0%';
-          setTimeout(() => { s1.style.width = '85%'; animateNumber(v1, 0, 1423, '만', 1500); }, 300);
-          setTimeout(() => { s2.style.width = '43%'; animateNumber(v2, 0, 43, '점', 1200); }, 800);
-          break;
-
-        case 3: // Mechanics
-          document.querySelectorAll('.mechanic-item').forEach((el, i) => {
+        case 1: { // Scene 2 PROBLEM - edu-item 3개 순차
+          document.querySelectorAll('.scene-2 .edu-item').forEach((el, i) => {
             el.style.opacity = '0'; el.style.transform = 'translateX(-30px)';
             setTimeout(() => {
               el.style.transition = 'all 0.5s ease';
               el.style.opacity = '1'; el.style.transform = 'translateX(0)';
-            }, 200 + i * 250);
+            }, 300 + i * 450);
           });
           break;
+        }
 
-        case 4: // Scoring
-          document.querySelectorAll('.score-card').forEach((el, i) => {
-            el.style.opacity = '0'; el.style.transform = 'scale(0.8)';
-            setTimeout(() => {
-              el.style.transition = 'all 0.4s ease';
-              el.style.opacity = '1'; el.style.transform = 'scale(1)';
-            }, 200 + i * 200);
-          });
+        case 2: { // Scene 3 TWIST - 호기심
+          const tEmoji = document.querySelector('.scene-3 .hook-emoji');
+          const tText = document.querySelector('.scene-3 .big-text');
+          const tSub = document.querySelector('.scene-3 .sub-text');
+          if (tEmoji) { tEmoji.style.animation = 'none'; tEmoji.offsetHeight; tEmoji.style.animation = 'bounceIn 0.6s ease forwards'; }
+          if (tText) { tText.style.animation = 'none'; tText.offsetHeight; tText.style.animation = 'slideUp 0.6s 0.4s ease forwards'; }
+          if (tSub) { tSub.style.animation = 'none'; tSub.offsetHeight; tSub.style.animation = 'slideUp 0.6s 0.8s ease forwards'; }
           break;
+        }
 
-        case 5: // Education effects
-          document.querySelectorAll('.edu-item').forEach((el, i) => {
+        case 3: { // Scene 4 REVEAL - bridge + 로고
+          const bEmojis = document.querySelectorAll('.scene-bridge .bridge-emoji');
+          const bArrow = document.querySelector('.scene-bridge .bridge-arrow');
+          const bLogo = document.querySelector('.scene-bridge .logo-text');
+          const bText = document.querySelector('.scene-bridge .big-text');
+          [bEmojis[0], bArrow, bEmojis[1], bLogo, bText].forEach(el => {
+            if (el) { el.style.opacity = '0'; el.style.transform = 'translateY(20px)'; }
+          });
+          setTimeout(() => { if (bEmojis[0]) { bEmojis[0].style.transition = 'all 0.5s ease'; bEmojis[0].style.opacity = '1'; bEmojis[0].style.transform = 'translateY(0)'; } }, 200);
+          setTimeout(() => { if (bArrow) { bArrow.style.transition = 'all 0.4s ease'; bArrow.style.opacity = '1'; bArrow.style.transform = 'translateY(0)'; } }, 600);
+          setTimeout(() => { if (bEmojis[1]) { bEmojis[1].style.transition = 'all 0.5s ease'; bEmojis[1].style.opacity = '1'; bEmojis[1].style.transform = 'translateY(0)'; } }, 1000);
+          setTimeout(() => { if (bLogo) { bLogo.style.transition = 'all 0.5s ease'; bLogo.style.opacity = '1'; bLogo.style.transform = 'translateY(0)'; } }, 1600);
+          setTimeout(() => { if (bText) { bText.style.transition = 'all 0.5s ease'; bText.style.opacity = '1'; bText.style.transform = 'translateY(0)'; } }, 2300);
+          break;
+        }
+
+        case 4: { // Scene 5 FLOW - mechanic 4개 순차
+          document.querySelectorAll('.scene-4 .mechanic-item').forEach((el, i) => {
             el.style.opacity = '0'; el.style.transform = 'translateX(-30px)';
             setTimeout(() => {
               el.style.transition = 'all 0.5s ease';
               el.style.opacity = '1'; el.style.transform = 'translateX(0)';
-            }, 200 + i * 250);
-          });
-          break;
-
-        case 6: // Evidence + Impact
-          ['ev1','ev2','ev3'].forEach((id, i) => {
-            const el = document.getElementById(id);
-            el.style.opacity = '0'; el.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-              el.style.transition = 'all 0.6s ease';
-              el.style.opacity = '1'; el.style.transform = 'translateY(0)';
             }, 300 + i * 500);
           });
           break;
+        }
+
+        case 5: { // Scene 6 UI-LEAGUE 만들기 (신규)
+          const leagueCard = document.querySelector('.scene-ui-league .league-card');
+          const memberCards = Array.from(document.querySelectorAll('.scene-ui-league .league-member-card'));
+          const status = document.querySelector('.scene-ui-league .league-status');
+          // 초기화
+          if (leagueCard) { leagueCard.style.opacity = '0'; leagueCard.style.transform = 'translateY(-15px)'; }
+          memberCards.forEach(c => { c.style.opacity = '0'; c.style.transform = 'scale(0.7)'; });
+          if (status) { status.style.opacity = '0'; status.style.transform = 'translateY(10px)'; }
+          // 리그 카드 등장
+          setTimeout(() => {
+            if (leagueCard) {
+              leagueCard.style.transition = 'all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)';
+              leagueCard.style.opacity = '1';
+              leagueCard.style.transform = 'translateY(0)';
+            }
+          }, 200);
+          // 멤버 카드 순차 scaleIn
+          memberCards.forEach((card, i) => {
+            setTimeout(() => {
+              card.style.transition = 'all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)';
+              card.style.opacity = '1';
+              card.style.transform = 'scale(1)';
+            }, 700 + i * 180);
+          });
+          // 상태 배지
+          setTimeout(() => {
+            if (status) {
+              status.style.transition = 'all 0.4s ease';
+              status.style.opacity = '1';
+              status.style.transform = 'translateY(0)';
+            }
+          }, 700 + memberCards.length * 180 + 150);
+          break;
+        }
+
+        case 6: { // Scene 7 UI-1 학습 도구 4종 (옵션 A)
+          const gameCards = Array.from(document.querySelectorAll('.mini-game-card'));
+          const badge = document.getElementById('gameCardsBadge');
+
+          // 초기화
+          gameCards.forEach(c => { c.style.opacity = '0'; c.style.transform = 'translateX(-20px)'; });
+          if (badge) { badge.style.opacity = '0'; badge.style.transform = 'translateY(10px)'; }
+
+          // 카드 순차 슬라이드인
+          gameCards.forEach((card, i) => {
+            setTimeout(() => {
+              card.style.transition = 'all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)';
+              card.style.opacity = '1';
+              card.style.transform = 'translateX(0)';
+            }, 300 + i * 350);
+          });
+
+          // 하단 배지 등장
+          setTimeout(() => {
+            if (badge) {
+              badge.style.transition = 'all 0.5s ease';
+              badge.style.opacity = '1';
+              badge.style.transform = 'translateY(0)';
+            }
+          }, 300 + gameCards.length * 350 + 200);
+
+          // v5: 미니게임 카드 애니메이션만 사용, 이전 preseason 로직 제거
+          break;
+        }
+
+        case 7: { // Scene 8 UI-2 DRAFT - 턴제 드래프트 + 스탯 디테일 패널
+          const avatars = Array.from(document.querySelectorAll('.draft-avatar'));
+          const stockRows = Array.from(document.querySelectorAll('.draft-stock-row'));
+          const timerEl = document.getElementById('draftTimer');
+          const nameEl = document.getElementById('draftCurrentName');
+          const mySlots = Array.from(document.querySelectorAll('.draft-my-pick'));
+          const detailPanel = document.getElementById('draftDetail');
+          const detailLogo = document.getElementById('detailLogo');
+          const detailName = document.getElementById('detailName');
+          const detailPbr = document.getElementById('detailPbr');
+          const detailEps = document.getElementById('detailEps');
+          const detailRoe = document.getElementById('detailRoe');
+          // detailDiv removed - 배당수익률 미표시
+
+          // 종목 스탯 + 가상 월봉 (최근 12개월 OHLC)
+          // 각 종목별로 특성 있는 차트 패턴: 상승세/V자/완만/횡보/강세/안정
+          const stockData = [
+            { name: '삼성전자', logoBg: '#1428A0', logoColor: '#fff', logoText: 'S',
+              pbr: '3.45', eps: '6,564원', roe: '10.85%', div: '2.4%',
+              chart: [ // 전체적 상승세 + 중간 조정
+                [63000,65500,62500,64500],[64500,66500,63500,65500],
+                [65500,68000,64800,67200],[67200,67500,64500,65000],
+                [65000,66500,62800,63500],[63500,68800,62500,67500],
+                [67500,72000,67000,71200],[71200,71800,68500,69000],
+                [69000,73500,68800,72800],[72800,75500,72000,74500],
+                [74500,74000,70000,70800],[70800,74000,70000,72800],
+              ] },
+            { name: 'SK하이닉스', logoBg: '#E60012', logoColor: '#fff', logoText: 'SK',
+              pbr: '7.37', eps: '58,955원', roe: '44.15%', div: '1.2%',
+              chart: [ // V자 (폭락 후 강한 반등)
+                [140000,145000,128000,132000],[132000,135000,118000,120000],
+                [120000,125000,108000,112000],[112000,118000,102000,105000],
+                [105000,110000,98000,99000],[99000,110000,97000,108000],
+                [108000,125000,106000,122000],[122000,138000,120000,135000],
+                [135000,152000,133000,148000],[148000,160000,145000,156000],
+                [156000,162000,150000,152000],[152000,160000,148000,158000],
+              ] },
+            { name: 'NAVER', logoBg: '#03C75A', logoColor: '#fff', logoText: 'N',
+              pbr: '1.14', eps: '12,376원', roe: '7.36%', div: '0.8%',
+              chart: [ // 완만한 꾸준 상승
+                [170000,180000,168000,178000],[178000,188000,175000,185000],
+                [185000,192000,180000,188000],[188000,195000,182000,192000],
+                [192000,202000,188000,198000],[198000,205000,192000,200000],
+                [200000,208000,195000,205000],[205000,215000,200000,210000],
+                [210000,218000,205000,215000],[215000,220000,210000,212000],
+                [212000,218000,205000,215000],[215000,222000,212000,220000],
+              ] },
+            { name: 'KB금융', logoBg: '#FFC800', logoColor: '#111', logoText: 'KB',
+              pbr: '0.97', eps: '15,116원', roe: '9.98%', div: '6.0%',
+              chart: [ // 횡보 후 상승 (가치주 재평가)
+                [80000,85000,78000,83000],[83000,88000,82000,85000],
+                [85000,86000,80000,82000],[82000,88000,81000,87000],
+                [87000,92000,85000,90000],[90000,95000,88000,92000],
+                [92000,95000,89000,91000],[91000,98000,90000,96000],
+                [96000,100000,94000,98000],[98000,102000,95000,97000],
+                [97000,100000,92000,94000],[94000,98000,93000,96000],
+              ] },
+            { name: '현대차', logoBg: '#002C5F', logoColor: '#fff', logoText: 'H',
+              pbr: '1.21', eps: '35,331원', roe: '8.41%', div: '3.5%',
+              chart: [ // 최근 강세 (전기차 전환)
+                [190000,200000,185000,195000],[195000,205000,192000,200000],
+                [200000,215000,198000,212000],[212000,220000,208000,215000],
+                [215000,230000,212000,225000],[225000,240000,222000,235000],
+                [235000,245000,230000,240000],[240000,252000,238000,248000],
+                [248000,260000,245000,255000],[255000,262000,250000,258000],
+                [258000,265000,252000,255000],[255000,262000,250000,260000],
+              ] },
+            { name: 'KT&G', logoBg: '#8C3E2B', logoColor: '#fff', logoText: 'KT',
+              pbr: '1.99', eps: '8,973원', roe: '11.77%', div: '5.2%',
+              chart: [ // 안정적 배당주 (flat with slight drift)
+                [88000,91000,86000,89000],[89000,92000,87000,90000],
+                [90000,93000,88000,91000],[91000,92000,88000,89000],
+                [89000,91000,86000,87000],[87000,90000,85000,88000],
+                [88000,92000,87000,91000],[91000,93000,89000,90000],
+                [90000,92000,87000,89000],[89000,91000,88000,90000],
+                [90000,93000,88000,91000],[91000,95000,89000,94000],
+              ] },
+          ];
+
+          // 가상 월봉 차트 SVG 생성 헬퍼
+          function buildCandleSVG(data) {
+            const W = 280, H = 44;
+            const n = data.length;
+            const padding = 4;
+            const availableW = W - padding * 2;
+            const candleW = (availableW / n) * 0.7;
+            const gap = (availableW / n) * 0.3;
+            const allPrices = data.flatMap(([o, h, l, c]) => [h, l]);
+            const minP = Math.min.apply(null, allPrices);
+            const maxP = Math.max.apply(null, allPrices);
+            const range = (maxP - minP) || 1;
+            const y = (p) => H - 2 - ((p - minP) / range) * (H - 4);
+            const x = (i) => padding + i * (candleW + gap) + gap / 2;
+            let parts = [
+              '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">'
+            ];
+            data.forEach(function (row, i) {
+              const o = row[0], hi = row[1], lo = row[2], c = row[3];
+              const up = c >= o;
+              const color = up ? '#b91c1c' : '#1d4ed8';
+              const cx = x(i) + candleW / 2;
+              // 심지
+              parts.push('<line x1="' + cx.toFixed(1) + '" y1="' + y(hi).toFixed(1) +
+                         '" x2="' + cx.toFixed(1) + '" y2="' + y(lo).toFixed(1) +
+                         '" stroke="' + color + '" stroke-width="1"/>');
+              // 몸통
+              const bodyTop = y(Math.max(o, c));
+              const bodyH = Math.max(1, Math.abs(y(o) - y(c)));
+              parts.push('<rect x="' + x(i).toFixed(1) + '" y="' + bodyTop.toFixed(1) +
+                         '" width="' + candleW.toFixed(1) + '" height="' + bodyH.toFixed(1) +
+                         '" fill="' + color + '"/>');
+            });
+            parts.push('</svg>');
+            return parts.join('');
+          }
+
+          const detailChartEl = document.getElementById('detailChart');
+          const detailChartRangeEl = document.getElementById('detailChartRange');
+
+          // 초기화
+          avatars.forEach(a => a.classList.remove('turn-active', 'done'));
+          stockRows.forEach(r => {
+            r.classList.remove('selecting', 'picked');
+            const tag = r.querySelector('.draft-stock-pick-tag');
+            if (tag) tag.classList.remove('show');
+          });
+          mySlots.forEach((s, i) => {
+            if (i >= 2) { s.classList.remove('filled'); s.innerHTML = '?'; }
+          });
+          if (detailPanel) detailPanel.classList.remove('filled');
+
+          // 턴마다 30초로 리셋되는 타이머 — 자연스러운 속도 (1초당 5칸 정도)
+          function startTurnTimer() {
+            if (window._draftTimerInterval) clearInterval(window._draftTimerInterval);
+            let tv = 30;
+            const render = () => {
+              if (!timerEl) return;
+              timerEl.textContent = '\u23F1\uFE0F ' + tv + '초 남음';
+              timerEl.style.color = tv <= 10 ? '#b91c1c' : '#374151';
+            };
+            render();
+            window._draftTimerInterval = setInterval(() => {
+              tv -= 1;
+              if (tv < 0) { tv = 0; clearInterval(window._draftTimerInterval); return; }
+              render();
+            }, 200);
+          }
+          startTurnTimer(); // 초기 (나의 첫 턴)
+
+          // 픽 시퀀스 — 1픽 SK하이닉스 (준영) → ★ 2픽 삼성전자 (나) → 3~6픽 다른 4명
+          //   준영 → idx 1 (SK하이닉스) — 첫 픽
+          //   ★ 나 → idx 0 (삼성전자) — 2번째 픽
+          //   서연 → idx 2 (NAVER)
+          //   민호 → idx 5 (KT&G)
+          //   지호 → idx 4 (현대차)
+          //   혁진 → idx 3 (KB금융)
+          const picks = [
+            { turnIdx: 1, name: '준영', stockIdx: 1, duration: 1200, isMine: false },
+            { turnIdx: 0, name: '나',   stockIdx: 0, duration: 1800, isMine: true  },
+            { turnIdx: 2, name: '서연', stockIdx: 2, duration: 1200, isMine: false },
+            { turnIdx: 3, name: '민호', stockIdx: 5, duration: 1200, isMine: false },
+            { turnIdx: 4, name: '지호', stockIdx: 4, duration: 1200, isMine: false },
+            { turnIdx: 5, name: '혁진', stockIdx: 3, duration: 1200, isMine: false },
+          ];
+
+          // sequence 빌드 — 각 픽마다 cursor 누적, 내 픽 직후 Journal 시간 끼워넣기
+          const sequence = [];
+          let cursor = 0;
+          let journalStart = 0;
+          const doneSoFar = [];
+          const JOURNAL_DURATION = 2200; // 내 픽 후 Journal 등장 + 타이핑 + 여유 (다음 픽까지의 갭)
+          picks.forEach((p) => {
+            const base = cursor;
+            const hoverDelay = p.isMine ? 400 : 200;
+            const pickDelay  = p.isMine ? 900 : 500;
+            sequence.push({ at: base,                 type: 'turn',  turnIdx: p.turnIdx, name: p.name, doneList: doneSoFar.slice() });
+            sequence.push({ at: base + hoverDelay,    type: 'hover', stockIdx: p.stockIdx });
+            sequence.push({ at: base + pickDelay,     type: 'pick',  stockIdx: p.stockIdx, pickerIdx: p.turnIdx, isMine: p.isMine });
+            cursor += p.duration;
+            doneSoFar.push(p.turnIdx);
+            // ★ 내 픽 직후 Journal 등장 + 타이핑 시간을 sequence cursor에 끼워넣음
+            // → 다음 픽(3번째)은 Journal이 끝난 시점부터 시작
+            if (p.isMine) {
+              journalStart = cursor;
+              cursor += JOURNAL_DURATION;
+            }
+          });
+
+          sequence.forEach(step => {
+            setTimeout(() => {
+              if (step.type === 'turn') {
+                avatars.forEach((a, idx) => {
+                  a.classList.remove('turn-active', 'done');
+                  if (step.doneList && step.doneList.includes(idx)) a.classList.add('done');
+                });
+                if (avatars[step.turnIdx]) avatars[step.turnIdx].classList.add('turn-active');
+                if (nameEl) nameEl.textContent = step.name;
+                // 턴 바뀔 때마다 30초로 리셋
+                startTurnTimer();
+              }
+              if (step.type === 'hover') {
+                const row = stockRows[step.stockIdx];
+                if (row) row.classList.add('selecting');
+                // 디테일 패널 업데이트 + 월봉 차트 갱신
+                const data = stockData[step.stockIdx];
+                if (data && detailPanel) {
+                  detailPanel.classList.add('filled');
+                  if (detailLogo) {
+                    detailLogo.style.background = data.logoBg;
+                    detailLogo.style.color = data.logoColor;
+                    detailLogo.textContent = data.logoText;
+                  }
+                  if (detailName) detailName.textContent = data.name;
+                  if (detailPbr) detailPbr.textContent = data.pbr;
+                  if (detailEps) detailEps.textContent = data.eps;
+                  if (detailRoe) detailRoe.textContent = data.roe;
+                  // detailDiv removed
+                  // 월봉 차트
+                  if (data.chart && detailChartEl) {
+                    detailChartEl.innerHTML = buildCandleSVG(data.chart);
+                    if (detailChartRangeEl) {
+                      const first = data.chart[0][3];
+                      const last = data.chart[data.chart.length - 1][3];
+                      const pct = ((last - first) / first) * 100;
+                      const sign = pct >= 0 ? '+' : '';
+                      detailChartRangeEl.textContent =
+                        '1년 ' + sign + pct.toFixed(1) + '%';
+                      detailChartRangeEl.style.color = pct >= 0 ? '#b91c1c' : '#1d4ed8';
+                    }
+                  }
+                }
+              }
+              if (step.type === 'pick') {
+                const row = stockRows[step.stockIdx];
+                if (row) {
+                  row.classList.remove('selecting');
+                  row.classList.add('picked');
+                  const tag = row.querySelector('.draft-stock-pick-tag');
+                  if (tag) tag.classList.add('show');
+                }
+                // 내가 픽한 경우 (pickerIdx === 0) — 포트폴리오 deck에 scaleIn 강조 추가
+                if (step.pickerIdx === 0) {
+                  const data = stockData[step.stockIdx];
+                  const emptySlot = mySlots.find(s => !s.classList.contains('filled') && s.textContent.trim() === '?');
+                  if (emptySlot && data) {
+                    emptySlot.classList.add('filled');
+                    emptySlot.innerHTML =
+                      '<div class="draft-pick-logo" style="background:' + data.logoBg +
+                      '; color:' + data.logoColor + ';">' + data.logoText + '</div>';
+                    // ★ 새로 추가: 포트폴리오 슬롯 scaleIn 강조 (튀어 들어오는 느낌)
+                    emptySlot.style.transform = 'scale(0)';
+                    emptySlot.style.transition = 'transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.45s ease';
+                    emptySlot.style.boxShadow = '0 0 0 0 rgba(59,130,246,0)';
+                    setTimeout(() => {
+                      emptySlot.style.transform = 'scale(1)';
+                      emptySlot.style.boxShadow = '0 0 0 4px rgba(59,130,246,0.35)';
+                    }, 50);
+                    setTimeout(() => {
+                      emptySlot.style.boxShadow = '0 0 0 0 rgba(59,130,246,0)';
+                    }, 900);
+                  }
+                }
+              }
+            }, step.at);
+          });
+
+          // v5: Decision Journal 타이핑 — 내 픽 직후 자연스럽게 등장
+          const journalEl = document.getElementById('draftJournal');
+          const journalTyping = document.getElementById('journalTyping');
+          const journalCount = document.getElementById('journalCount');
+          if (journalEl) {
+            journalEl.style.opacity = '0';
+            journalEl.style.transform = 'translateY(10px)';
+          }
+          // 내 픽 종목(stockIdx 0 = 삼성전자) 사실 수치 (현재 시장 기준)
+          const journalText = 'PER 33.55 + 시총 1286조 + 배당수익률 0.76%';
+          // ★ 내 픽 직후 Journal 등장 (다음 픽 전까지 끼어듦)
+          setTimeout(() => {
+            if (journalEl) {
+              journalEl.style.opacity = '1';
+              journalEl.style.transform = 'translateY(0)';
+            }
+          }, journalStart);
+          // 글자 타이핑 (60ms/자) — Journal 등장 200ms 후 시작
+          for (let ci = 0; ci < journalText.length; ci++) {
+            setTimeout(() => {
+              if (journalTyping) {
+                journalTyping.innerHTML = '<span style="color:#111827;">' + journalText.substring(0, ci + 1) + '</span><span style="color:#9ca3af;">|</span>';
+              }
+              if (journalCount) {
+                const len = ci + 1;
+                journalCount.textContent = len + ' / 15자 이상';
+                journalCount.style.color = len >= 15 ? '#10b981' : '#f59e0b';
+              }
+            }, journalStart + 200 + ci * 60);
+          }
+          break;
+        }
+
+        case 8: { // Scene 9 UI-3 DASHBOARD - 리그 중간 순위 대시보드
+          const progressCard = document.getElementById('dashProgress');
+          const progressFill = document.getElementById('dashProgressFill');
+          const rankRows = Array.from(document.querySelectorAll('.dash-rank-row'));
+          // 초기화
+          if (progressCard) {
+            progressCard.style.opacity = '0';
+            progressCard.style.transform = 'translateY(-10px)';
+          }
+          if (progressFill) progressFill.style.width = '0%';
+          rankRows.forEach(row => {
+            row.style.opacity = '0';
+            row.style.transform = 'translateX(-15px)';
+          });
+          // 진행도 카드 등장
+          setTimeout(() => {
+            if (progressCard) {
+              progressCard.style.transition = 'all 0.4s ease';
+              progressCard.style.opacity = '1';
+              progressCard.style.transform = 'translateY(0)';
+            }
+          }, 200);
+          // 진행 bar fill 0 → 30%
+          setTimeout(() => {
+            if (progressFill) {
+              progressFill.style.transition = 'width 1s cubic-bezier(0.4, 0, 0.2, 1)';
+              progressFill.style.width = '30%';
+            }
+          }, 600);
+          // 6명 순위 row 순차 등장 (위에서부터)
+          rankRows.forEach((row, i) => {
+            setTimeout(() => {
+              row.style.transition = 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+              row.style.opacity = '1';
+              row.style.transform = 'translateX(0)';
+            }, 700 + i * 200);
+          });
+          break;
+        }
+
+        case 9: { // Scene 10 SOCIAL - 진입 장벽(2명) 시각화 + 멤버 점진 합류
+          const countEl = document.getElementById('socialCount');
+          const slotsEl = document.getElementById('socialSlots');
+          const statusEl = document.getElementById('socialStatus');
+          if (!countEl || !slotsEl || !statusEl) break;
+          const allSlots = Array.from(slotsEl.children);
+          // 합류 데이터 (5명 — 2~6번째 슬롯에 차례로 채워짐)
+          const memberData = [
+            { idx: 1, name: '준', bg: 'linear-gradient(135deg,#f472b6,#a78bfa)' },
+            { idx: 2, name: '서', bg: 'linear-gradient(135deg,#34d399,#22d3ee)' },
+            { idx: 3, name: '민', bg: 'linear-gradient(135deg,#fbbf24,#fb923c)' },
+            { idx: 4, name: '지', bg: 'linear-gradient(135deg,#a78bfa,#ec4899)' },
+            { idx: 5, name: '혁', bg: 'linear-gradient(135deg,#10b981,#f59e0b)' },
+          ];
+          // 초기화: 1명(나)만 채워진 상태 + 노란 뱃지
+          countEl.textContent = '1';
+          statusEl.style.background = '#fef3c7';
+          statusEl.style.color = '#92400e';
+          statusEl.style.transform = 'scale(1)';
+          statusEl.textContent = '친구 1명만 더 부르면 시작 가능!';
+          for (let i = 1; i < 10; i++) {
+            const slot = allSlots[i];
+            if (slot) {
+              slot.style.transition = 'none';
+              slot.style.background = '#f3f4f6';
+              slot.style.border = '1.5px dashed #d1d5db';
+              slot.style.color = '#9ca3af';
+              slot.textContent = '+';
+              slot.style.transform = 'scale(1)';
+            }
+          }
+          // 5명 순차 합류 (600ms 간격)
+          memberData.forEach((m, i) => {
+            setTimeout(() => {
+              const slot = allSlots[m.idx];
+              if (slot) {
+                slot.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, border 0.3s ease, color 0.3s ease';
+                slot.style.background = m.bg;
+                slot.style.border = 'none';
+                slot.style.color = '#fff';
+                slot.textContent = m.name;
+                slot.style.transform = 'scale(0.5)';
+                setTimeout(() => { slot.style.transform = 'scale(1)'; }, 30);
+              }
+              if (countEl) countEl.textContent = String(i + 2);
+              // 첫 친구 합류(2명 도달) → ✓ 시작 가능 메시지 + 펄스
+              if (i === 0 && statusEl) {
+                statusEl.style.transition = 'all 0.4s ease';
+                statusEl.style.background = 'rgba(52,211,153,0.18)';
+                statusEl.style.color = '#15803d';
+                statusEl.textContent = '✓ 2명 도달 — 시즌 시작 가능!';
+                statusEl.style.transform = 'scale(1.08)';
+                setTimeout(() => { statusEl.style.transform = 'scale(1)'; }, 380);
+              }
+              // 6명 도달 → 풍성 메시지
+              if (i === 4 && statusEl) {
+                statusEl.textContent = '✓ 6명 모임 — 리그 풍성!';
+              }
+            }, 600 + i * 600);
+          });
+          break;
+        }
+
+        case 10: { // Scene 11 GROWTH - edu-item 3개 순차
+          document.querySelectorAll('.scene-6 .edu-item').forEach((el, i) => {
+            el.style.opacity = '0'; el.style.transform = 'translateX(-30px)';
+            setTimeout(() => {
+              el.style.transition = 'all 0.5s ease';
+              el.style.opacity = '1'; el.style.transform = 'translateX(0)';
+            }, 300 + i * 400);
+          });
+          break;
+        }
+
+        case 11: { // Scene 12 IMPACT - edu-item 3개 순차
+          document.querySelectorAll('.scene-7 .edu-item').forEach((el, i) => {
+            el.style.opacity = '0'; el.style.transform = 'translateX(-30px)';
+            setTimeout(() => {
+              el.style.transition = 'all 0.5s ease';
+              el.style.opacity = '1'; el.style.transform = 'translateX(0)';
+            }, 300 + i * 400);
+          });
+          break;
+        }
+
+        case 12: { // Scene 13 CTA - pulse (CSS)
+          break;
+        }
       }
     }
 
@@ -914,8 +2607,11 @@
       if (e.key === 'r') restart();
     });
 
-    // Start
-    showScene(0);
+    // Start — 초기 로드 시 씬 1은 CSS 애니메이션이 이미 실행 중이므로 animateScene 생략
+    scenes.forEach(s => s.classList.remove('active'));
+    scenes[0].classList.add('active');
+    counter.textContent = `1 / ${scenes.length}`;
+    elapsed = 0;
     scheduleNext();
   </script>
 
